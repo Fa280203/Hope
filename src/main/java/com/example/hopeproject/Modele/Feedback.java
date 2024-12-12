@@ -22,6 +22,6 @@ public class Feedback {
 
     private LocalDateTime dateCreation = LocalDateTime.now();
 
-    // Getters et Setters
+
 }
 
