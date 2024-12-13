@@ -11,25 +11,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable()) // Nouvelle méthode pour désactiver CSRF
+
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register").permitAll() // Pages publiques
+                        .requestMatchers("/api/utilisateurs/**").permitAll() // Accessible à tous
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN") // Accessible uniquement aux ADMIN
-                        .requestMatchers("/api/enseignant/**").hasAuthority("ENSEIGNANT") // Accessible aux ENSEIGNANTS
-                        .requestMatchers("/api/etudiant/**").hasAuthority("ETUDIANT") // Accessible aux ETUDIANTS
-                        .anyRequest().authenticated() // Tout le reste nécessite une connexion
-                )
-                .formLogin(form -> form
-                        .loginPage("/login") // Page de connexion personnalisée
-                        .defaultSuccessUrl("/home", true) // Redirection après connexion réussie
-                        .failureUrl("/login?error=true") // Redirection en cas d'erreur
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout") // URL pour la déconnexion
-                        .logoutSuccessUrl("/login?logout=true") // Redirection après déconnexion
-                        .invalidateHttpSession(true) // Supprime la session
-                        .deleteCookies("JSESSIONID") // Supprime le cookie de session
-                        .permitAll()
+                        .requestMatchers("/api/enseignant/**").hasAuthority("ENSEIGNANT") // Accessible uniquement aux ENSEIGNANTS
+                        .requestMatchers("/api/etudiant/**").hasAuthority("ETUDIANT") // Accessible uniquement aux ÉTUDIANTS
+                        .anyRequest().authenticated() // Toutes les autres routes nécessitent une authentification
                 );
 
         return http.build();
