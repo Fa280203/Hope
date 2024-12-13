@@ -31,4 +31,10 @@ public class UtilisateurService {
     public void supprimerUtilisateur(Long id) {
         utilisateurRepository.deleteById(id);
     }
+
+    public Optional<Utilisateur> connecterUtilisateur(String login, String motDePasse) {
+        return utilisateurRepository.findByLoginAndMotDePasse(login, motDePasse);
+    }
+
+
 }
