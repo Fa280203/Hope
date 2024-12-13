@@ -2,12 +2,17 @@
 /* Header universel */
 
 header {
+    background-image: url('./couverture.jpg');  /* Lien vers l'image de fond */
+    background-size: cover;  /* L'image couvre toute la largeur et la hauteur du header */
+    background-position: top;
+
     background-color: #3323a8;  /* Couleur de fond pour le header */
     color: white;  /* Couleur du texte pour tout le header */
     padding: 20px 0;  /* Espacement vertical */
     text-align: center;  /* Centrer le texte */
     margin-bottom: 30px;  /* Espacement sous le header */
     width: 100%;  /* Largeur totale */
+    height: 120px;  /* Fixer une hauteur pour le header (ajuste si nécessaire) */
 }
 
 .header-container h1 {
@@ -15,13 +20,14 @@ header {
     font-size: 3em;  /* Taille de la police pour le titre */
     font-weight: bold;  /* Police en gras */
     color: white;  /* Texte du titre en blanc */
+    line-height: 120px;
 }
 
-.header-container p {
+/*.header-container p {
     margin: 5px 0 0 0;  /* Espacement sous le titre */
-    font-size: 1.2em;  /* Taille de la police pour la description */
-    font-style: italic;  /* Italique pour le sous-titre */
-}
+    /*font-size: 1.2em;  /* Taille de la police pour la description */
+    /*font-style: italic;  /* Italique pour le sous-titre */
+
 
 body {
     font-family: Arial, sans-serif;
@@ -33,7 +39,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #3c27c5;
+    color: #252D30FF;
     margin-bottom: 20px;
 }
 
@@ -62,7 +68,7 @@ table th, table td {
 }
 
 table thead {
-    background-color: #4838b2;
+    background-color: #252D30FF;
     color: #fff;
     text-transform: uppercase;
     font-size: 14px;
@@ -73,15 +79,15 @@ table tbody tr:nth-child(odd) {
 }
 
 table tbody tr:hover {
-    background-color: #eaf0fa;
+    background-color: #faf5ea;
 }
 
 /* Boutons et liens dans la table */
 table td a {
     padding: 5px 10px;
-    border: 1px solid #4838b2;
+    border: 1px solid #b27d38;
     border-radius: 3px;
-    background-color: #4838b2;
+    background-color: #efa904;
     color: #fff;
     font-size: 14px;
     text-align: center;
@@ -89,8 +95,8 @@ table td a {
 }
 
 table td a:hover {
-    background-color: #4845a0;
-    border-color: #4845a0;
+    background-color: #d29503;
+    border-color: #d29503;
 }
 
 /* Lien de déconnexion */
