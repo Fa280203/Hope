@@ -1,0 +1,78 @@
+/* Style général */
+header {
+    background-color: #3c27c5;  /* Couleur de fond pour le header */
+    color: white;  /* Couleur du texte pour tout le header */
+    padding: 20px 0;  /* Espacement vertical */
+    text-align: center;  /* Centrer le texte */
+    margin-bottom: 30px;  /* Espacement sous le header */
+    width: 100%;  /* Largeur totale */
+}
+
+.header-container h1 {
+    margin: 0;
+    font-size: 3em;  /* Taille de la police pour le titre */
+    font-weight: bold;  /* Police en gras */
+    color: white;  /* Texte du titre en blanc */
+}
+
+.header-container p {
+    margin: 5px 0 0 0;  /* Espacement sous le titre */
+    font-size: 1.2em;  /* Taille de la police pour la description */
+    font-style: italic;  /* Italique pour le sous-titre */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1 {
+    text-align: center;
+    color: #3c27c5;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #4838b2;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Conteneur des détails */
+div {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+p strong {
+    color: #3c27c5;
+    font-weight: bold;
+}
+
+a[target="_blank"] {
+    color: #4838b2;
+    font-weight: bold;
+}
+
+a[target="_blank"]:hover {
+    text-decoration: underline;
+    color: #3c27c5;
+}
