@@ -21,4 +21,6 @@ public class Utilisateur {
     public enum Role {
         ADMIN, ENSEIGNANT, ETUDIANT
     }
+
+
 }

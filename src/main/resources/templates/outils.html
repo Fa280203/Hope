@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Outils</title>
+</head>
+<body>
+<h1>Liste des Outils</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Domaine</th>
+        <th>Description</th>
+        <th>Lien</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="outil : ${outils}">
+        <td th:text="${outil.titre}"></td>
+        <td th:text="${outil.domaine}"></td>
+        <td th:text="${outil.descriptionSimple}"></td>
+        <td><a th:href="${outil.lien}" target="_blank">Voir</a></td>
+        <td>
+            <a th:href="@{/outils/details/{id}(id=${outil.id})}">Détails</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/logout">Se déconnecter</a>
+</body>
+</html>
