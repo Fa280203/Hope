@@ -2,7 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Ajouter un Feedback</title>
+    <link rel="stylesheet" type="text/css" href="feedback.css">
+    <meta charset="UTF-8">
 </head>
+<header>
+    <div class="header-container">
+        <h1>HOPE</h1>
+        <p>Hub des Outils et Plateformes pour les Enseignements</p>
+    </div>
+</header>
 <body>
 <h1>Ajouter un Feedback</h1>
 <form th:action="@{/feedbacks/ajouter}" method="post">

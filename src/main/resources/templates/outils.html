@@ -2,7 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Liste des Outils</title>
+    <link rel="stylesheet" type="text/css" href="outils.css">
+    <meta charset="UTF-8">
 </head>
+<header>
+    <div class="header-container">
+        <h1>HOPE</h1>
+        <p>Hub des Outils et Plateformes pour les Enseignements</p>
+    </div>
+</header>
 <body>
 <h1>Liste des Outils</h1>
 <table border="1">
@@ -21,9 +29,7 @@
         <td th:text="${outil.domaine}"></td>
         <td th:text="${outil.descriptionSimple}"></td>
         <td><a th:href="${outil.lien}" target="_blank">Voir</a></td>
-        <td>
-            <a th:href="@{/outils/details/{id}(id=${outil.id})}">Détails</a>
-        </td>
+        <td><a th:href="@{/outils/details/{id}(id=${outil.id})}">Détails</a></td>
     </tr>
     </tbody>
 </table>
