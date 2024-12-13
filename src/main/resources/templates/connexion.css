@@ -1,11 +1,13 @@
-/* Style général */
 header {
-    background-color: #3323a8;  /* Couleur de fond pour le header */
+    background-color: rgba(0, 0, 0, 0.7);  /* Noir avec une opacité de 0.7 */
     color: white;  /* Couleur du texte pour tout le header */
     padding: 20px 0;  /* Espacement vertical */
     text-align: center;  /* Centrer le texte */
     margin-bottom: 30px;  /* Espacement sous le header */
+    /* Ajouter un dégradé pour un effet plus stylé */
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
     width: 100%;  /* Largeur totale */
+    height: 120px;  /* Fixer une hauteur pour le header (ajuste si nécessaire) */
 }
 
 .header-container h1 {
@@ -13,19 +15,22 @@ header {
     font-size: 3em;  /* Taille de la police pour le titre */
     font-weight: bold;  /* Police en gras */
     color: white;  /* Texte du titre en blanc */
+
 }
 
 .header-container p {
     margin: 5px 0 0 0;  /* Espacement sous le titre */
     font-size: 1.2em;  /* Taille de la police pour la description */
-    font-style: italic;  /* Italique pour le sous-titre */
 }
 
 body {
-    font-family: Arial, sans-serif;
+    background-image: url('./couverture.jpg');
+    background-size: cover;  /* Assurer que l'image couvre tout l'écran */
+    background-position: center;
+    background-attachment: fixed;  /* L'image reste fixe lors du défilement */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
     display: flex;
@@ -35,73 +40,80 @@ body {
     flex-direction: column;
 }
 
-
 h1 {
     text-align: center;
-    color: #3c27c5;
-    margin-bottom: 20px;
+    color: #fff;  /* Couleur blanche pour le titre de la page */
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);  /* Ombre subtile pour le titre */
 }
 
 form {
     width: 100%;
-    max-width: 400px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.8);  /* Fond semi-transparent pour le formulaire */
+    padding: 30px;
+    border-radius: 10px;  /* Coins arrondis */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);  /* Ombre plus prononcée pour l'effet 3D */
+    backdrop-filter: blur(10px);  /* Effet de flou d'arrière-plan */
 }
 
 form div {
-    margin-bottom: 15px;
+    margin-bottom: 20px;  /* Espacement un peu plus grand entre les champs */
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
-    color: #333;
+    color: #444;  /* Couleur légèrement plus foncée pour les labels */
 }
 
 input[type="text"],
 input[type="password"] {
     width: 100%;
-    padding: 10px;
+    padding: 12px;  /* Augmenter un peu le padding pour un effet plus confortable */
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
     box-sizing: border-box;
+    transition: all 0.3s ease;  /* Animation douce lors du focus */
 }
 
 input:focus {
-    border-color: #3c27c5;
+    border-color: #4838b2;  /* Bordure bleue lors du focus */
     outline: none;
-    box-shadow: 0 0 5px rgba(60, 39, 197, 0.5);
+    box-shadow: 0 0 8px rgba(72, 56, 178, 0.5);  /* Ombre bleu clair lors du focus */
 }
 
 button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
-    background-color: #3c27c5;
+    border-radius: 8px;
+    background-color: #efa904;  /* Couleur de fond du bouton */
     color: white;
     font-size: 16px;
     cursor: pointer;
     text-transform: uppercase;
+    letter-spacing: 1px;  /* Espacement des lettres pour plus d'impact */
+    transition: background-color 0.3s ease;  /* Animation lors du survol */
 }
 
 button:hover {
-    background-color: #3323a8;
+    background-color: #b27d38;  /* Couleur plus foncée au survol */
 }
 
 a {
     display: block;
     text-align: center;
-    margin-top: 15px;
-    color: #4838b2;
+    margin-top: 20px;
+    color: #4838b2;  /* Lien bleu */
     text-decoration: none;
+    font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #3c27c5;  /* Changement de couleur au survol */
 }

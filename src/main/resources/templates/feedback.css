@@ -1,11 +1,16 @@
 /* Style général */
 header {
+    background-image: url('./couverture.jpg');  /* Lien vers l'image de fond */
+    background-size: cover;  /* L'image couvre toute la largeur et la hauteur du header */
+    background-position: top;
+
     background-color: #3323a8;  /* Couleur de fond pour le header */
     color: white;  /* Couleur du texte pour tout le header */
     padding: 20px 0;  /* Espacement vertical */
     text-align: center;  /* Centrer le texte */
     margin-bottom: 30px;  /* Espacement sous le header */
     width: 100%;  /* Largeur totale */
+    height: 120px;  /* Fixer une hauteur pour le header (ajuste si nécessaire) */
 }
 
 .header-container h1 {
@@ -13,6 +18,7 @@ header {
     font-size: 3em;  /* Taille de la police pour le titre */
     font-weight: bold;  /* Police en gras */
     color: white;  /* Texte du titre en blanc */
+    line-height: 120px;
 }
 
 .header-container p {
@@ -31,7 +37,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #3c27c5;
+    color: #252D30FF;
     margin-bottom: 20px;
 }
 
@@ -88,7 +94,7 @@ button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: #4838b2;
+    background-color: #efa904;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -96,5 +102,5 @@ button {
 }
 
 button:hover {
-    background-color: #4838b2;
+    background-color: #b27d38;
 }
