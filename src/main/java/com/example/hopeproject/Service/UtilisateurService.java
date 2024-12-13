@@ -15,6 +15,7 @@ public class UtilisateurService {
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
+
     public List<Utilisateur> recupererTousLesUtilisateurs() {
         return utilisateurRepository.findAll();
     }

@@ -28,4 +28,9 @@ public class UtilisateurController {
     public void supprimerUtilisateur(@PathVariable Long id) {
         utilisateurService.supprimerUtilisateur(id);
     }
+
+    @GetMapping("/connexion")
+    public int connexion() {
+
+    }
 }
