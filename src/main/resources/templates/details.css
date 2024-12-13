@@ -1,4 +1,5 @@
 /* Style général */
+/* Style général du header pour être cohérent avec feedback.css */
 header {
     background-color: #3c27c5;  /* Couleur de fond pour le header */
     color: white;  /* Couleur du texte pour tout le header */
@@ -6,19 +7,27 @@ header {
     text-align: center;  /* Centrer le texte */
     margin-bottom: 30px;  /* Espacement sous le header */
     width: 100%;  /* Largeur totale */
+    height: auto; /* Assure que la taille du header s'ajuste au contenu */
 }
 
+/* Taille et espacement du titre dans le header */
 .header-container h1 {
     margin: 0;
-    font-size: 3em;  /* Taille de la police pour le titre */
+    font-size: 3em;  /* Assure que la taille de police est la même */
     font-weight: bold;  /* Police en gras */
     color: white;  /* Texte du titre en blanc */
 }
 
+/* Description sous le titre, style similaire */
 .header-container p {
     margin: 5px 0 0 0;  /* Espacement sous le titre */
     font-size: 1.2em;  /* Taille de la police pour la description */
     font-style: italic;  /* Italique pour le sous-titre */
+}
+
+header .header-container {
+    background-color: transparent;  /* Aucune couleur de fond */
+    border: none;  /* Aucune bordure */
 }
 
 body {
