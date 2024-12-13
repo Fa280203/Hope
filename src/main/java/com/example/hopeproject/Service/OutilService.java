@@ -29,4 +29,5 @@ public class OutilService {
     public void supprimerOutil(Long id) {
         outilRepository.deleteById(id);
     }
+
 }
