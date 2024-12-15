@@ -5,12 +5,19 @@ import com.example.hopeproject.Service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import com.example.hopeproject.Service.UtilisateurService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/api/utilisateurs")
 public class UtilisateurController {
 
@@ -33,15 +40,25 @@ public class UtilisateurController {
     }
 
     @GetMapping("/connexion")
-    public ResponseEntity<?> connexion(@RequestParam String login, @RequestParam String password) {
-        Optional<Utilisateur> utilisateur = utilisateurService.connecterUtilisateur(login, password);
+    public String afficherPageConnexion() {
+        return "connexion"; // Renvoie le fichier connexion.html dans /templates
+    }
+
+    // Gère la soumission du formulaire de connexion
+    @PostMapping("/connexion")
+    public String verifierConnexion(@RequestParam String username, @RequestParam String password, Model model) {
+        var utilisateur = utilisateurService.connecterUtilisateur(username, password);
 
         if (utilisateur.isPresent()) {
-            return ResponseEntity.ok(utilisateur.get());
+            // Connexion réussie : redirige vers outils.html
+            return "redirect:/outils";
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login ou mot de passe incorrect.");
+            // Connexion échouée : reste sur la page de connexion avec un message d'erreur
+            model.addAttribute("erreur", "Identifiant ou mot de passe incorrect.");
+            return "connexion";
         }
     }
+
 
 }
 

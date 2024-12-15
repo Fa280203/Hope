@@ -1,7 +1,6 @@
 /* Style général */
-/* Style général du header pour être cohérent avec feedback.css */
-header{
-    background-image: url('./couverture.jpg');  /* Lien vers l'image de fond */
+header {
+    background-image: url('../../templates/couverture.jpg');  /* Lien vers l'image de fond */
     background-size: cover;  /* L'image couvre toute la largeur et la hauteur du header */
     background-position: top;
 
@@ -22,22 +21,11 @@ header{
     line-height: 120px;
 }
 
-/* Description sous le titre, style similaire */
 .header-container p {
     margin: 5px 0 0 0;  /* Espacement sous le titre */
     font-size: 1.2em;  /* Taille de la police pour la description */
     font-style: italic;  /* Italique pour le sous-titre */
 }
-
-header .header-container {
-    background-color: transparent;  /* Aucune couleur de fond */
-    border: none;  /* Aucune bordure */
-    padding: 0;  /* Aucun espacement */
-
-    /* Aucune ombre */
-    box-shadow: none;
-}
-
 
 body {
     font-family: Arial, sans-serif;
@@ -49,12 +37,12 @@ body {
 
 h1 {
     text-align: center;
-    color: #252d30;
+    color: #252D30FF;
     margin-bottom: 20px;
 }
 
 a {
-    color: #252D30FF;
+    color: #4838b2;
     text-decoration: none;
     display: inline-block;
     margin-top: 20px;
@@ -64,8 +52,8 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Conteneur des détails */
-div {
+/* Formulaire */
+form {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -75,22 +63,44 @@ div {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-p {
-    margin: 10px 0;
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+textarea, input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     font-size: 16px;
+    box-sizing: border-box;
 }
 
-p strong {
-    color: #252D30FF;
-    font-weight: bold;
+textarea:focus, input[type="number"]:focus {
+    border-color: #4838b2;
+    outline: none;
+    box-shadow: 0 0 5px rgba(9, 33, 98, 0.5);
 }
 
-a[target="_blank"] {
-    color: #252D30FF;
-    font-weight: bold;
+button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #efa904;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
 }
 
-a[target="_blank"]:hover {
-    text-decoration: underline;
-    color: #252D30FF;
+button:hover {
+    background-color: #b27d38;
 }

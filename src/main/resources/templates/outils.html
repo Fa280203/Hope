@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Liste des Outils</title>
-    <link rel="stylesheet" type="text/css" href="outils.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/outils.css">
     <meta charset="UTF-8">
 </head>
 <header>
@@ -12,6 +12,10 @@
     </div>
 </header>
 <body>
+<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+    <h2>Bienvenue Administrateur</h2>
+</div>
+
 <h1>Liste des Outils</h1>
 <table border="1">
     <thead>

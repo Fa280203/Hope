@@ -24,7 +24,7 @@ header {
 }
 
 body {
-    background-image: url('./couverture.jpg');
+    background-image: url('../../templates/couverture.jpg');
     background-size: cover;  /* Assurer que l'image couvre tout l'écran */
     background-position: center;
     background-attachment: fixed;  /* L'image reste fixe lors du défilement */
