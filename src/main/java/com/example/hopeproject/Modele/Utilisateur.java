@@ -8,27 +8,34 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
+@Table(name = "utilisateur") // Nom explicite pour la table
 public class Utilisateur implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false) // Champ obligatoire
     private String nom;
+
+    @Column(nullable = false) // Champ obligatoire
     private String prenom;
+
+    @Column(unique = true, nullable = false) // Unique pour éviter les doublons
     private String login;
 
-    @Column(name = "mot_de_passe")
+    @Column(name = "mot_de_passe", nullable = false) // Correction ici
     private String motDePasse;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false) // Champ obligatoire
     private Role role;
 
     public enum Role {
         ADMIN, ENSEIGNANT, ETUDIANT
     }
 
-    // Getters et setters classiques
+    // Getters et setters
 
     public Long getId() {
         return id;
@@ -78,8 +85,7 @@ public class Utilisateur implements UserDetails {
         this.role = role;
     }
 
-    // Implémentation des méthodes UserDetails pour Spring Security
-
+    // Implémentation de UserDetails pour Spring Security
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(() -> "ROLE_" + role.name());
