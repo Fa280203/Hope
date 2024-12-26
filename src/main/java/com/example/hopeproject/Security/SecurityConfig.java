@@ -23,20 +23,18 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Désactive CSRF pour simplifier les tests
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/utilisateurs/connexion", "/css/**").permitAll() // Autorise la connexion et les CSS
-                        .requestMatchers(HttpMethod.POST, "/api/utilisateurs").permitAll() // Permet les requêtes POST pour créer des utilisateurs
+                        .requestMatchers(HttpMethod.POST, "/utilisateurs").permitAll() // Permet les requêtes POST pour créer des utilisateurs
 //                        .requestMatchers("/outils/**").hasRole("ADMIN") // Seuls les admins ont accès à /outils/**
                         .requestMatchers("/outils/**").permitAll()// Seuls les admins ont accès à /outils/**
 
                         .anyRequest().authenticated() // Le reste nécessite une authentification
                 )
-                .formLogin(form -> form
-                        .loginPage("/api/utilisateurs/connexion") // Page de connexion
-                        .defaultSuccessUrl("/outils", true) // Redirection après connexion réussie
-                        .permitAll()
-                )
+
+                .formLogin(form -> form.disable()) // Désactive la gestion de login automatique
+
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/api/utilisateurs/connexion?logout=true") // Redirection après déconnexion
+                        .logoutSuccessUrl("/utilisateurs/connexion?logout=true") // Redirection après déconnexion
                         .permitAll()
                 );
 

@@ -8,9 +8,15 @@
 <header>
     <div class="header-container">
         <h1>HOPE</h1>
-        <!--p>Hub des Outils et Plateformes pour les Enseignements</p-->
     </div>
+    <div class="user-info">
+        <span class="welcome">Bienvenue, <span th:text="${prenom} + ' ' + ${nom}"></span></span>
+        <a href="/logout" class="logout-button">Se déconnecter</a>
+    </div>
+
 </header>
+
+
 <body>
 <!-- Vérifie si l'utilisateur a le rôle ADMIN -->
 <!--<div th:if="${#authorization.expression('isAuthenticated()')}">-->
@@ -41,6 +47,5 @@
     </tr>
     </tbody>
 </table>
-<a href="/logout">Se déconnecter</a>
 </body>
 </html>

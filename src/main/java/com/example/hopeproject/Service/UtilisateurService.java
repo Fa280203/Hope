@@ -45,7 +45,13 @@ public class UtilisateurService {
     }
 
     public Optional<Utilisateur> connecterUtilisateur(String login, String motDePasse) {
-        return utilisateurRepository.findByLoginAndMotDePasse(login, motDePasse);
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findByLogin(login);
+        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findByLogin(login);
+        if (optionalUtilisateur.isPresent() && passwordEncoder.matches(motDePasse, optionalUtilisateur.get().getMotDePasse())) {
+            return optionalUtilisateur;
+        }
+
+        return Optional.empty();
     }
 
 

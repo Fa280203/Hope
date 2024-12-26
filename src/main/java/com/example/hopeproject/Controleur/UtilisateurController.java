@@ -2,6 +2,8 @@ package com.example.hopeproject.Controleur;
 
 import com.example.hopeproject.Modele.Utilisateur;
 import com.example.hopeproject.Service.UtilisateurService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,16 +40,30 @@ public class UtilisateurController {
 
     // Gérer le formulaire de connexion
     @PostMapping("/connexion")
-    public String verifierConnexion(@RequestParam String username, @RequestParam String password, Model model) {
+    public String verifierConnexion(
+            @RequestParam String username,
+            @RequestParam String password,
+            HttpServletRequest request
+    ) {
+        // Invalide la session existante
+        request.getSession().invalidate();
+
+        // Crée une nouvelle session
+        HttpSession newSession = request.getSession(true);
+
+        // Trouve l'utilisateur avec le login et le mot de passe
         var utilisateur = utilisateurService.connecterUtilisateur(username, password);
 
         if (utilisateur.isPresent()) {
-            // Si l'utilisateur est trouvé, redirige vers la page des outils
+            // Ajoute les informations de l'utilisateur à la nouvelle session
+            newSession.setAttribute("nom", utilisateur.get().getNom());
+            newSession.setAttribute("prenom", utilisateur.get().getPrenom());
             return "redirect:/outils";
-        } else {
-            // Sinon, affiche un message d'erreur
-            model.addAttribute("erreur", "Identifiant ou mot de passe incorrect.");
-            return "connexion"; // Reste sur la page de connexion
         }
+
+        // Si l'utilisateur n'est pas trouvé, retourne à la page de connexion avec une erreur
+        return "connexion";
     }
+
+
 }
