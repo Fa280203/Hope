@@ -1,7 +1,6 @@
 package com.example.hopeproject.Modele;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -22,5 +21,11 @@ public class Feedback {
 
     private LocalDateTime dateCreation = LocalDateTime.now();
 
-}
+    public void setContenu(String contenu) {
+    }
 
+    public void setOutil(Outil outilId) {
+    }
+
+    // Getters and Setters
+}

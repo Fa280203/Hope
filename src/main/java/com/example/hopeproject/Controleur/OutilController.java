@@ -77,7 +77,7 @@ public class OutilController {
         model.addAttribute("titre", outil.getTitre());
         model.addAttribute("descriptionDetaillee", outil.getDescriptionDetaillee());
         model.addAttribute("acces", outil.getAcces());
-
+        model.addAttribute("outilId", outil.getId());
         return "details"; // Correspond au fichier templates/details.html
     }
 }

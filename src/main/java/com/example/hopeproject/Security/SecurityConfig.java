@@ -22,8 +22,13 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Désactive CSRF pour simplifier les tests
                 .authorizeHttpRequests(auth -> auth
+
                         .requestMatchers("/utilisateurs/connexion", "/css/**").permitAll() // Autorise la connexion et les CSS
-                        .requestMatchers(HttpMethod.POST, "/utilisateurs").permitAll() // Permet les requêtes POST pour créer des utilisateurs
+                                .requestMatchers("/utilisateurs/logout", "/css/**").permitAll() // Autorise la connexion et les CSS
+                                .requestMatchers("/feedbacks/formulaire/**", "/css/**").permitAll() // Autorise la connexion et les CSS
+
+                                .requestMatchers(HttpMethod.POST, "/utilisateurs/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
+
 //                        .requestMatchers("/outils/**").hasRole("ADMIN") // Seuls les admins ont accès à /outils/**
                         .requestMatchers("/outils/**").permitAll()// Seuls les admins ont accès à /outils/**
 
