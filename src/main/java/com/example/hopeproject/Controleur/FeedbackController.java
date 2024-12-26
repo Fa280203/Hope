@@ -1,31 +1,34 @@
 package com.example.hopeproject.Controleur;
 
 import com.example.hopeproject.Modele.Feedback;
+import com.example.hopeproject.Modele.Outil;
 import com.example.hopeproject.Service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/feedbacks")
+@Controller
+@RequestMapping("/feedbacks")
 public class FeedbackController {
 
     @Autowired
     private FeedbackService feedbackService;
 
-    @GetMapping
-    public List<Feedback> recupererTousLesFeedbacks() {
-        return feedbackService.recupererTousLesFeedbacks();
+    @GetMapping("/formulaire/{outilId}")
+    public String afficherFormulaireFeedback(@PathVariable Long outilId, Model model) {
+        model.addAttribute("outilId", outilId);
+        return "feedback"; // Correspond au fichier templates/feedbackForm.html
     }
 
-    @PostMapping
-    public Feedback ajouterFeedback(@RequestBody Feedback feedback) {
-        return feedbackService.ajouterFeedback(feedback);
-    }
-
-    @DeleteMapping("/{id}")
-    public void supprimerFeedback(@PathVariable Long id) {
-        feedbackService.supprimerFeedback(id);
+    @PostMapping("/ajouter")
+    public String ajouterFeedback(@RequestParam String contenu, @RequestParam Outil outilId) {
+        Feedback feedback = new Feedback();
+        feedback.setContenu(contenu);
+        feedback.setOutil(outilId);
+        feedbackService.ajouterFeedback(feedback);
+        return "redirect:/outils"; // Redirige vers la liste des outils après ajout
     }
 }

@@ -8,13 +8,22 @@
 <header>
     <div class="header-container">
         <h1>HOPE</h1>
+        <div>
+            <!-- Message personnalisé selon le rôle -->
+            <span th:if="${session.role == 'ADMIN'}">
+                Bienvenue, Administrateur <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+            </span>
+            <span th:if="${session.role == 'ENSEIGNANT'}">
+                Bienvenue, Enseignant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+            </span>
+            <span th:if="${session.role == 'ETUDIANT'}">
+                Bienvenue, Étudiant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+            </span>
+            <a href="/utilisateurs/logout" class="logout-button">Se déconnecter</a>
+        </div>
     </div>
-    <div class="user-info">
-        <span class="welcome">Bienvenue, <span th:text="${prenom} + ' ' + ${nom}"></span></span>
-        <a href="/logout" class="logout-button">Se déconnecter</a>
-    </div>
-
 </header>
+
 
 
 <body>

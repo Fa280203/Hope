@@ -37,7 +37,11 @@ public class UtilisateurController {
     public String afficherPageConnexion() {
         return "connexion"; // Renvoie connexion.html dans le dossier templates
     }
-
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // Invalide la session pour supprimer les attributs utilisateur
+        return "redirect:/utilisateurs/connexion"; // Redirection vers la page de connexion
+    }
     // Gérer le formulaire de connexion
     @PostMapping("/connexion")
     public String verifierConnexion(
@@ -58,6 +62,8 @@ public class UtilisateurController {
             // Ajoute les informations de l'utilisateur à la nouvelle session
             newSession.setAttribute("nom", utilisateur.get().getNom());
             newSession.setAttribute("prenom", utilisateur.get().getPrenom());
+            newSession.setAttribute("role", utilisateur.get().getRole().name()); // Ajoute le rôle dans la session
+
             return "redirect:/outils";
         }
 
