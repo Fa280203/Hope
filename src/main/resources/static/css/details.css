@@ -1,7 +1,7 @@
 /* Style général */
 /* Style général du header pour être cohérent avec feedback.css */
 header{
-    background-image: url('../../templates/couverture.jpg');  /* Lien vers l'image de fond */
+    background-image: url('couverture.jpg');  /* Lien vers l'image de fond */
     background-size: cover;  /* L'image couvre toute la largeur et la hauteur du header */
     background-position: top;
 

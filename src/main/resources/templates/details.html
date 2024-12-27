@@ -9,19 +9,27 @@
 <header>
     <div class="header-container">
         <h1>HOPE</h1>
-        <!--p>Hub des Outils et Plateformes pour les Enseignements</p-->
     </div>
 </header>
 
 <h1>Détails de l'outil</h1>
 <div>
     <p><strong>Titre :</strong> <span th:text="${titre}"></span></p>
-    <p><strong>Description :</strong> <span th:text="${descriptionDetaillee}"></span></p>
+    <p><strong>Domaine :</strong> <span th:text="${domaine}"></span></p>
+    <p><strong>Description :</strong> <span th:text="${descriptionSimple}"></span></p>
     <p><strong>Accès :</strong> <span th:text="${acces}"></span></p>
+    <p><strong>Lien :</strong> <a th:href="${lien}" target="_blank">Voir</a></p>
 </div>
+
+<!-- Actions -->
+<div>
+    <a th:href="@{'/feedbacks/formulaire/' + ${outilId}}">Ajouter un Feedback</a>
+    <form th:action="@{/outils/supprimer/{id}(id=${outilId})}" method="post" style="display:inline;">
+        <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet outil ?');">Supprimer</button>
+    </form>
+    <a th:href="@{/outils/modifier/{id}(id=${outilId})}" class="btn-modifier">Modifier</a>
+</div>
+
 <a href="/outils">Retour à la liste</a>
-<a th:href="@{'/feedbacks/formulaire/' + ${outilId}}">Ajouter un Feedback</a>
-
-
 </body>
 </html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Modifier un Outil</title>
+  <link rel="stylesheet" th:href="@{/css/modifier.css}">
+  <meta charset="UTF-8">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1>HOPE</h1>
+  </div>
+</header>
+
+<h1>Modifier l'Outil</h1>
+
+<!-- Formulaire pour modifier un outil -->
+<form th:action="@{/outils/modifier}" method="post">
+  <input type="hidden" name="id" th:value="${outil.id}" />
+
+  <div>
+    <label for="titre">Titre :</label>
+    <input type="text" id="titre" name="titre" th:value="${outil.titre}" required />
+  </div>
+
+  <div>
+    <label for="domaine">Domaine :</label>
+    <input type="text" id="domaine" name="domaine" th:value="${outil.domaine}" required />
+  </div>
+
+  <div>
+    <label for="descriptionSimple">Description Simple :</label>
+    <textarea id="descriptionSimple" name="descriptionSimple" required>
+            <span th:text="${outil.descriptionSimple}"></span>
+        </textarea>
+  </div>
+
+  <div>
+    <label for="lien">Lien :</label>
+    <input type="url" id="lien" name="lien" th:value="${outil.lien}" required />
+  </div>
+  <div>
+    <label for="acces">Accès :</label>
+    <textarea id="acces" name="acces" required>
+        <span th:text="${outil.acces}"></span>
+    </textarea>
+  </div>
+
+  <button type="submit">Enregistrer les modifications</button>
+</form>
+
+<a href="/outils">Retour à la liste</a>
+
+</body>
+</html>

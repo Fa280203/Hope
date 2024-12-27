@@ -77,8 +77,52 @@ public class OutilController {
         model.addAttribute("titre", outil.getTitre());
         model.addAttribute("descriptionDetaillee", outil.getDescriptionDetaillee());
         model.addAttribute("acces", outil.getAcces());
+        model.addAttribute("descriptionSimple", outil.getDescriptionSimple());
+        model.addAttribute("domaine", outil.getDomaine());
+        model.addAttribute("lien", outil.getLien());
+
+
         model.addAttribute("outilId", outil.getId());
         return "details"; // Correspond au fichier templates/details.html
     }
+    // Afficher le formulaire de modification depuis les détails
+    @GetMapping("/modifier/{id}")
+    public String afficherPageModifierOutil(@PathVariable Long id, Model model) {
+        var outil = outilService.recupererOutilParId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Outil introuvable"));
+
+        model.addAttribute("outil", outil); // Passe l'objet Outil à la vue
+        return "modifier"; // Renvoie le fichier modifier.html
+    }
+
+
+    // Gérer la soumission du formulaire de modification
+    @PostMapping("/modifier")
+    public String modifierOutil(
+            @RequestParam Long id,
+            @RequestParam String titre,
+            @RequestParam String domaine,
+            @RequestParam String descriptionSimple,
+            @RequestParam String lien,
+            @RequestParam String acces
+    ) {
+        // Récupération de l'outil existant
+        var outil = outilService.recupererOutilParId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Outil introuvable"));
+
+        // Mise à jour des champs
+        outil.setTitre(titre);
+        outil.setDomaine(domaine);
+        outil.setDescriptionSimple(descriptionSimple);
+        outil.setLien(lien);
+        outil.setAcces(acces); // Mise à jour de l'accès
+
+        // Enregistrement dans la base de données
+        outilService.ajouterOutil(outil);
+
+        return "redirect:/outils"; // Redirection vers la liste après modification
+    }
+
+
 }
 
