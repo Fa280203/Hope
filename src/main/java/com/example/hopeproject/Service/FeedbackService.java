@@ -24,4 +24,15 @@ public class FeedbackService {
     public void supprimerFeedback(Long id) {
         feedbackRepository.deleteById(id);
     }
+    public void supprimerFeedbacksParOutilId(Long outilId) {
+        feedbackRepository.deleteByOutilId(outilId);
+    }
+
+
+    public List<Feedback> recupererFeedbacksParOutil(Long outilId) {
+        return feedbackRepository.findByOutilId(outilId);
+    }
+    public List<Feedback> recupererFeedbacksParUtilisateur(Long utilisateurId) {
+        return feedbackRepository.findByUtilisateurId(utilisateurId);
+    }
 }

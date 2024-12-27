@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Panneau d'Administration</title>
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+  <meta charset="UTF-8">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1>HOPE - Panneau d'Administration</h1>
+  </div>
+</header>
+
+<h1>Outils à valider</h1>
+
+<div th:if="${outilsNonValides.isEmpty()}">
+  <p>Aucun outil en attente de validation.</p>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>Titre</th>
+    <th>Domaine</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="outil : ${outilsNonValides}">
+    <td th:text="${outil.titre}"></td>
+    <td th:text="${outil.domaine}"></td>
+    <td th:text="${outil.descriptionSimple}"></td>
+    <td>
+      <form th:action="@{/outils/valider/{id}(id=${outil.id})}" method="post" style="display:inline;">
+        <button type="submit">Valider</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+<a href="/outils">Retour à la liste des outils</a>
+
+</body>
+</html>

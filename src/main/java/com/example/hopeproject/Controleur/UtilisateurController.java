@@ -63,7 +63,8 @@ public class UtilisateurController {
             newSession.setAttribute("nom", utilisateur.get().getNom());
             newSession.setAttribute("prenom", utilisateur.get().getPrenom());
             newSession.setAttribute("role", utilisateur.get().getRole().name());
-            newSession.setAttribute("login", utilisateur.get().getLogin());// Ajoute le rôle dans la session
+            newSession.setAttribute("login", utilisateur.get().getLogin());
+            newSession.setAttribute("id",utilisateur.get().getId());// Ajoute le rôle dans la session
 
             return "redirect:/outils";
         }

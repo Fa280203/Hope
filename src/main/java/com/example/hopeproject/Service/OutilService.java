@@ -29,5 +29,45 @@ public class OutilService {
     public void supprimerOutil(Long id) {
         outilRepository.deleteById(id);
     }
+    public List<Outil> recupererOutilsNonValides() {
+        return outilRepository.findByBooleanWithDefaultValue(false);
+    }
+    public List<Outil> recupererOutilsValides() {
+        return outilRepository.findByBooleanWithDefaultValue(true);
+    }
+    public List<Outil> rechercherOutils(String query) {
+        return outilRepository.findByTitreContainingIgnoreCaseOrDomaineContainingIgnoreCaseOrDescriptionSimpleContainingIgnoreCase(
+                query, query, query);
+    }
+    public List<Outil> rechercherParTitre(String query) {
+        return outilRepository.findByTitreContainingIgnoreCase(query);
+    }
+
+    public List<Outil> rechercherParDomaine(String query) {
+        return outilRepository.findByDomaineContainingIgnoreCase(query);
+    }
+
+    public List<Outil> rechercherParDescription(String query) {
+        return outilRepository.findByDescriptionSimpleContainingIgnoreCase(query);
+    }
+    public List<String> recupererDomaines() {
+        return outilRepository.findDistinctDomaines();
+    }
+    public List<Outil> rechercherOutils(String query, String domaine) {
+        if (query == null && (domaine == null || domaine.isEmpty())) {
+            return recupererOutilsValides(); // Si aucun critère, retourne tous les outils valides
+        } else if (query != null && (domaine == null || domaine.isEmpty())) {
+            return outilRepository.findByTitreContainingIgnoreCaseOrDescriptionSimpleContainingIgnoreCase(query, query);
+        } else if (query == null) {
+            return outilRepository.findByDomaine(domaine);
+        } else {
+            return outilRepository.findByDomaineAndTitreOrDescription(domaine, query);
+        }
+    }
+
+
+
+
+
 
 }

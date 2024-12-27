@@ -1,6 +1,6 @@
 /* Style général */
 header {
-    background-image: url('../../templates/couverture.jpg');  /* Lien vers l'image de fond */
+    background-image: url('couverture.jpg');  /* Lien vers l'image de fond */
     background-size: cover;  /* L'image couvre toute la largeur et la hauteur du header */
     background-position: top;
 

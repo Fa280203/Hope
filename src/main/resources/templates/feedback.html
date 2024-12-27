@@ -8,20 +8,37 @@
 <header>
     <div class="header-container">
         <h1>HOPE</h1>
+        <div>
+            <span th:if="${session.role == 'ADMIN'}">
+                Bienvenue, Administrateur <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+            </span>
+            <span th:if="${session.role == 'ENSEIGNANT'}">
+                Bienvenue, Enseignant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+            </span>
+            <span th:if="${session.role == 'ETUDIANT'}">
+                Bienvenue, Étudiant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+            </span>
+            <a href="/utilisateurs/logout" class="logout-button">Se déconnecter</a>
+        </div>
     </div>
 </header>
 <body>
 <h1>Ajouter un Feedback</h1>
+
+<div th:if="${message}" style="color: red;">
+    <p th:text="${message}"></p>
+</div>
+
 <form th:action="@{/feedbacks/ajouter}" method="post">
     <div>
         <label for="contenu">Contenu du Feedback :</label>
         <textarea id="contenu" name="contenu" required></textarea>
     </div>
     <input type="hidden" id="outilId" name="outilId" th:value="${outilId}">
-    <input type="hidden" id="utilisateurId" name="utilisateurId" th:value="${session.utilisateurId}">
     <button type="submit">Ajouter</button>
 </form>
 
 <a href="/outils">Retour à la liste des outils</a>
 </body>
+
 </html>

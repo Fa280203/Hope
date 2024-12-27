@@ -12,6 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/feedbacks")
 public class FeedbackController {
@@ -38,24 +41,48 @@ public class FeedbackController {
             HttpSession session,
             Model model
     ) {
-
-        Feedback feedback = new Feedback();
-        System.out.println(contenu);
-        feedback.setContenu(contenu);
-        System.out.println(feedback.getContenu());
         String login = (String) session.getAttribute("login");
+        Long utilisateurId = (Long) session.getAttribute("id");
 
-        // Récupération de l'entité Outil
+        // Vérifiez que l'utilisateur est connecté
+        if (login == null || utilisateurId == null) {
+            model.addAttribute("message", "Vous devez être connecté pour ajouter un feedback.");
+            return "feedback";
+        }
+
+        // Vérifiez le nombre de feedbacks existants pour cet utilisateur
+        List<Feedback> userFeedbacks = feedbackService.recupererFeedbacksParUtilisateur(utilisateurId);
+        if (userFeedbacks.size() >= 5 && session.getAttribute("role")== "ADMIN") {
+            model.addAttribute("message", "Vous avez atteint le quota maximum de 5 feedbacks pour un Admin.");
+            model.addAttribute("outilId", outilId);
+            return "feedback";
+        }
+        if (userFeedbacks.size() >=2 && session.getAttribute("role")== "ETUDIANT") {
+            model.addAttribute("message", "Vous avez atteint le quota maximum de 2 feedbacks pour un Etudiant .");
+            model.addAttribute("outilId", outilId);
+            return "feedback";
+        }
+        if (userFeedbacks.size() >= 3 && session.getAttribute("role")== "ENSEIGNANT") {
+            model.addAttribute("message", "Vous avez atteint le quota maximum de 3 feedbacks pour un Enseignant .");
+            model.addAttribute("outilId", outilId);
+            return "feedback";
+        }
+
         Outil outil = outilService.recupererOutilParId(outilId)
                 .orElseThrow(() -> new IllegalArgumentException("Outil introuvable"));
-        feedback.setOutil(outil);
 
-        // Récupération de l'entité Utilisateur par login
         Utilisateur utilisateur = utilisateurService.recupererUtilisateurParLogin(login)
                 .orElseThrow(() -> new IllegalArgumentException("Utilisateur introuvable"));
+
+        Feedback feedback = new Feedback();
+        feedback.setContenu(contenu);
+        feedback.setOutil(outil);
         feedback.setUtilisateur(utilisateur);
 
         feedbackService.ajouterFeedback(feedback);
-        return "redirect:/outils"; // Redirection après ajout du feedback
+
+        session.setAttribute("message", "Votre feedback a été ajouté avec succès.");
+        return "redirect:/outils";
     }
+
 }

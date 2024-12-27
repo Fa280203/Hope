@@ -1,6 +1,7 @@
 package com.example.hopeproject.Modele;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class Outil {
@@ -9,19 +10,21 @@ public class Outil {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String titre; // Colonne A
-    private String domaine; // Colonne B
-    private String descriptionSimple; // Colonne C
+    private String titre;
+    private String domaine;
+    private String descriptionSimple;
 
     @Column(length = 5000)
     private String descriptionDetaillee;
     @Column(length = 5000)
 
-    private String lien; // Colonne F
+    private String lien;
     @Column(length = 5000)
-    private String acces; // Colonne E
+    private String acces;
+    @Column(nullable = false) // Ajoutez cette annotation si le champ ne doit pas être null en BDD
+    private boolean booleanWithDefaultValue = true;
 
-    // Constructeur complet (pour tout afficher)
+
     public Outil(String titre, String domaine, String descriptionSimple, String descriptionDetaillee,String lien, String acces) {
         this.titre = titre;
         this.domaine = domaine;
@@ -31,7 +34,15 @@ public class Outil {
         this.lien = lien;
     }
 
-    // Constructeur synthétique (pour A, B, C et E uniquement)
+
+    public boolean isBooleanWithDefaultValue() {
+        return booleanWithDefaultValue;
+    }
+
+    public void setBooleanWithDefaultValue(boolean booleanWithDefaultValue) {
+        this.booleanWithDefaultValue = booleanWithDefaultValue;
+    }
+
     public Outil(String titre, String domaine, String descriptionSimple, String lien) {
         this.titre = titre;
         this.domaine = domaine;
@@ -39,10 +50,8 @@ public class Outil {
         this.lien = lien;
     }
 
-    // Constructeur par défaut (nécessaire pour JPA)
     public Outil() {}
 
-    // Getters et setters pour tous les champs
 
     public Long getId() {
         return id;

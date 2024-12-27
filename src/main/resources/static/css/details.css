@@ -1,63 +1,56 @@
-/* Style général */
-/* Style général du header pour être cohérent avec feedback.css */
-header{
-    background-image: url('../../templates/couverture.jpg');  /* Lien vers l'image de fond */
-    background-size: cover;  /* L'image couvre toute la largeur et la hauteur du header */
+/* Style général pour le header */
+header {
+    background-image: url('couverture.jpg');
+    background-size: cover;
     background-position: top;
-
-    background-color: #3323a8;  /* Couleur de fond pour le header */
-    color: white;  /* Couleur du texte pour tout le header */
-    padding: 20px 0;  /* Espacement vertical */
-    text-align: center;  /* Centrer le texte */
-    margin-bottom: 30px;  /* Espacement sous le header */
-    width: 100%;  /* Largeur totale */
-    height: 120px;  /* Fixer une hauteur pour le header (ajuste si nécessaire) */
+    background-color: #3323a8;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 140px;
+    position: relative;
+    z-index: 10;
 }
 
+/* Titre du header */
 .header-container h1 {
     margin: 0;
-    font-size: 3em;  /* Taille de la police pour le titre */
-    font-weight: bold;  /* Police en gras */
-    color: white;  /* Texte du titre en blanc */
+    font-size: 3em;
+    font-weight: bold;
+    color: white;
     line-height: 120px;
 }
 
-/* Description sous le titre, style similaire */
-.header-container p {
-    margin: 5px 0 0 0;  /* Espacement sous le titre */
-    font-size: 1.2em;  /* Taille de la police pour la description */
-    font-style: italic;  /* Italique pour le sous-titre */
-}
-
-header .header-container {
-    background-color: transparent;  /* Aucune couleur de fond */
-    border: none;  /* Aucune bordure */
-    padding: 0;  /* Aucun espacement */
-
-    /* Aucune ombre */
-    box-shadow: none;
-}
-
-
+/* Style du body */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 0;
+    padding: 0;
     background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
 }
 
+/* Conteneur principal */
+main {
+    margin-top: 50px;
+    padding: 20px;
+}
+
+/* Titre principal */
 h1 {
     text-align: center;
     color: #252d30;
     margin-bottom: 20px;
 }
 
+/* Liens */
 a {
-    color: #252D30FF;
+    color: #4838b2;
     text-decoration: none;
-    display: inline-block;
-    margin-top: 20px;
+    font-weight: bold;
 }
 
 a:hover {
@@ -65,8 +58,8 @@ a:hover {
 }
 
 /* Conteneur des détails */
-div {
-    max-width: 600px;
+.details-container {
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -75,22 +68,65 @@ div {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-p {
+.details-container p {
     margin: 10px 0;
     font-size: 16px;
 }
 
-p strong {
+.details-container p strong {
     color: #252D30FF;
     font-weight: bold;
 }
 
-a[target="_blank"] {
-    color: #252D30FF;
-    font-weight: bold;
+/* Liste des feedbacks */
+ul {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
 }
 
-a[target="_blank"]:hover {
-    text-decoration: underline;
-    color: #252D30FF;
+ul li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+ul li strong {
+    color: #4838b2;
+}
+
+/* Boutons */
+button, .btn-modifier, .btn-feedback {
+    display: inline-block;
+    margin: 10px 5px 0 0;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .btn-modifier:hover, .btn-feedback:hover {
+    background-color: #45a049;
+}
+
+button {
+    background-color: #e74c3c;
+}
+
+button:hover {
+    background-color: #c0392b;
+}
+
+/* Conteneur des actions */
+.actions-container {
+    text-align: center;
+    margin-top: 20px;
 }

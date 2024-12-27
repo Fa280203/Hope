@@ -29,6 +29,7 @@ public class SecurityConfig {
 
                                 .requestMatchers(HttpMethod.POST, "/utilisateurs/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
                                 .requestMatchers(HttpMethod.POST, "/feedbacks/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
+                                .requestMatchers(HttpMethod.POST, "/outils/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
 
 //                        .requestMatchers("/outils/**").hasRole("ADMIN") // Seuls les admins ont accès à /outils/**
                         .requestMatchers("/outils/**").permitAll()// Seuls les admins ont accès à /outils/**

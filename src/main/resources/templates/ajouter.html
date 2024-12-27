@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Ajouter un Outil</title>
+  <link rel="stylesheet" th:href="@{/css/ajouter.css}">
+  <meta charset="UTF-8">
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <h1>HOPE</h1>
+  </div>
+</header>
+
+<h1>Ajouter un Outil</h1>
+
+<!-- Formulaire pour ajouter un outil -->
+<form th:action="@{/outils/ajouter}" method="post">
+  <div>
+    <label for="titre">Titre :</label>
+    <input type="text" id="titre" name="titre" required />
+  </div>
+
+  <div>
+    <label for="domaine">Domaine :</label>
+    <input type="text" id="domaine" name="domaine" required />
+  </div>
+
+  <div>
+    <label for="descriptionSimple">Description Simple :</label>
+    <textarea id="descriptionSimple" name="descriptionSimple" required></textarea>
+  </div>
+
+  <div>
+    <label for="lien">Lien :</label>
+    <input type="url" id="lien" name="lien" required />
+  </div>
+
+  <div>
+    <label for="acces">Accès :</label>
+    <textarea id="acces" name="acces" required></textarea>
+  </div>
+
+  <button type="submit">Ajouter l'Outil</button>
+</form>
+
+<a href="/outils">Retour à la liste</a>
+</body>
+</html>

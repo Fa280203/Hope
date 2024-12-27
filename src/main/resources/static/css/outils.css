@@ -1,65 +1,110 @@
 /* Style général */
 /* Header universel */
-header {
-    display: flex;
-    flex-direction: column; /* Affiche les éléments en colonne */
-    align-items: center;
-    background-color: #3323a8; /* Couleur de fond */
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    margin-bottom: 30px;
-    width: 100%;
-    height: auto; /* Hauteur ajustable selon le contenu */
-}
 
-/* Conteneur du titre */
-.header-container {
-    width: 100%;
-    text-align: center;
+header {
+    background-image: url('couverture.jpg');  /* Lien vers l'image de fond */
+    background-size: cover;  /* L'image couvre toute la largeur et la hauteur du header */
+    background-position: top;
+
+    background-color: #3323a8;  /* Couleur de fond pour le header */
+    color: white;  /* Couleur du texte pour tout le header */
+    padding: 20px 0;  /* Espacement vertical */
+    text-align: center;  /* Centrer le texte */
+    margin-bottom: 30px;  /* Espacement sous le header */
+    width: 100%;  /* Largeur totale */
+    height: 120px;  /* Fixer une hauteur pour le header (ajuste si nécessaire) */
 }
 
 .header-container h1 {
-    font-size: 2.5em; /* Taille de la police pour le titre */
-    font-weight: bold; /* Texte en gras */
-    margin: 0; /* Supprime les marges */
-    color: white; /* Couleur blanche */
+    margin: 0;
+    font-size: 3em;  /* Taille de la police pour le titre */
+    font-weight: bold;  /* Police en gras */
+    color: white;  /* Texte du titre en blanc */
+    line-height: 120px;
 }
 
-/* Section utilisateur dans l'en-tête */
-.user-info {
-    display: flex;
-    justify-content: flex-end; /* Aligne les éléments à droite */
-    align-items: center; /* Aligne verticalement au centre */
-    gap: 10px; /* Espace entre le texte et le bouton */
-    padding: 10px 20px; /* Espacement autour */
-    background-color: #252D30FF; /* Couleur de fond pour la section utilisateur */
-    width: 100%;
-    box-sizing: border-box; /* Inclut les marges dans la largeur totale */
-}
+/*.header-container p {
+    margin: 5px 0 0 0;  /* Espacement sous le titre */
+/*font-size: 1.2em;  /* Taille de la police pour la description */
+/*font-style: italic;  /* Italique pour le sous-titre */
 
-.user-info span {
-    font-weight: bold; /* Texte en gras */
-    color: white; /* Couleur blanche */
-    font-size: 16px; /* Taille de police */
-}
-
-.user-info a.logout-button {
-    padding: 8px 15px;
-    background-color: #94211a;
-    color: white;
+/* Style général pour les boutons */
+.btn-ajouter {
+    display: inline-block;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50; /* Vert pour les actions positives */
     border: none;
     border-radius: 5px;
+    text-align: center;
     text-decoration: none;
-    font-size: 14px;
-    transition: background-color 0.3s ease; /* Animation douce au survol */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
 }
 
-.user-info a.logout-button:hover {
-    background-color: #b01f16; /* Couleur légèrement plus claire au survol */
+.btn-ajouter:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Effet de zoom */
 }
 
-/* Style du corps */
+/* Bouton spécifique pour l'admin */
+.btn-admin {
+    background-color: #ffa500; /* Orange pour des actions spécifiques à l'admin */
+}
+
+.btn-admin:hover {
+    background-color: #e69500;
+}
+
+/* Container des boutons */
+.button-container {
+    margin: 20px 0;
+    text-align: center; /* Centrer les boutons */
+}
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 0 10%;
+    box-sizing: border-box;
+}
+
+.search-container input[type="text"],
+.search-container select,
+.search-container button {
+    width: 100%; /* 100% de la largeur du conteneur */
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Bouton de recherche */
+.search-container button {
+    width: 100%; /* 100% de la largeur du conteneur */
+
+    background-color: #4CAF50; /* Vert */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #45a049;
+}
+
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -130,7 +175,7 @@ table td a:hover {
     border-color: #d29503;
 }
 
-/* Lien de déconnexion spécifique */
+/* Lien de déconnexion */
 a[href="/logout"] {
     display: inline-block;
     margin-top: 20px;
@@ -143,5 +188,5 @@ a[href="/logout"] {
 }
 
 a[href="/logout"]:hover {
-    background-color: #b01f16;
+    background-color: #94211a;
 }

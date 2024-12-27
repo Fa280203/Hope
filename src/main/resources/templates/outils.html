@@ -9,7 +9,6 @@
     <div class="header-container">
         <h1>HOPE</h1>
         <div>
-            <!-- Message personnalisé selon le rôle -->
             <span th:if="${session.role == 'ADMIN'}">
                 Bienvenue, Administrateur <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
             </span>
@@ -23,16 +22,31 @@
         </div>
     </div>
 </header>
+<div class="search-container">
+    <form th:action="@{/outils/recherche}" method="get">
+        <!-- Champ de recherche par texte -->
+        <input type="text" name="query" placeholder="Rechercher par titre ou description..." class="search-input" />
+
+        <!-- Liste déroulante pour le domaine -->
+        <select name="domaine" class="search-select">
+            <option value="">Tous les domaines</option> <!-- Option par défaut -->
+            <option th:each="domaine : ${domaines}" th:value="${domaine}" th:text="${domaine}"></option>
+        </select>
+
+        <button type="submit" class="search-button">Rechercher</button>
+    </form>
+</div>
+
+<div class="button-container">
+    <a th:if="${session.role != null}" href="/outils/ajouter" class="btn-ajouter">Ajouter un outil</a>
+    <a th:if="${session.role == 'ADMIN'}" href="/outils/admin/validation" class="btn-ajouter btn-admin">Valider Les demandes d'outils</a>
+</div>
+
 
 
 
 <body>
-<!-- Vérifie si l'utilisateur a le rôle ADMIN -->
-<!--<div th:if="${#authorization.expression('isAuthenticated()')}">-->
-<!--    <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">-->
-<!--        <h2>Bienvenue Administrateur</h2>-->
-<!--    </div>-->
-<!--</div>-->
+
 
 
 <h1>Liste des Outils</h1>
@@ -53,6 +67,7 @@
         <td th:text="${outil.descriptionSimple}"></td>
         <td><a th:href="${outil.lien}" target="_blank">Voir</a></td>
         <td><a th:href="@{/outils/details/{id}(id=${outil.id})}">Détails</a></td>
+
     </tr>
 
     </tbody>
