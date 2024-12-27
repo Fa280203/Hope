@@ -22,9 +22,31 @@ public class Feedback {
     private LocalDateTime dateCreation = LocalDateTime.now();
 
     public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public LocalDateTime getDateCreation() {
+        return dateCreation;
+    }
+
+    public Outil getOutil() {
+        return outil;
     }
 
     public void setOutil(Outil outilId) {
+        this.outil = outilId;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
     // Getters and Setters

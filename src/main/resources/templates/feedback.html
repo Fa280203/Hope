@@ -8,7 +8,6 @@
 <header>
     <div class="header-container">
         <h1>HOPE</h1>
-        <!--p>Hub des Outils et Plateformes pour les Enseignements</p-->
     </div>
 </header>
 <body>
@@ -18,12 +17,11 @@
         <label for="contenu">Contenu du Feedback :</label>
         <textarea id="contenu" name="contenu" required></textarea>
     </div>
-    <div>
-        <label for="outilId">ID de l'Outil :</label>
-        <input type="number" id="outilId" name="outilId" required>
-    </div>
+    <input type="hidden" id="outilId" name="outilId" th:value="${outilId}">
+    <input type="hidden" id="utilisateurId" name="utilisateurId" th:value="${session.utilisateurId}">
     <button type="submit">Ajouter</button>
 </form>
+
 <a href="/outils">Retour à la liste des outils</a>
 </body>
 </html>

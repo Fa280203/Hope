@@ -22,6 +22,9 @@ public class UtilisateurService {
     public List<Utilisateur> recupererTousLesUtilisateurs() {
         return utilisateurRepository.findAll();
     }
+    public Optional<Utilisateur> recupererUtilisateurParId(Long id) {
+        return utilisateurRepository.findById(id);
+    }
 
     public Optional<Utilisateur> recupererUtilisateurParLogin(String login) {
         return utilisateurRepository.findByLogin(login);
