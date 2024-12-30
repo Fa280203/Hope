@@ -1,61 +1,78 @@
 package com.example.hopeproject.Service;
 
-
 import com.example.hopeproject.Modele.Utilisateur;
 import com.example.hopeproject.Repository.UtilisateurRepository;
+import com.example.hopeproject.Exceptions.ConnexionException;
+import com.example.hopeproject.Exceptions.UtilisateurNonTrouveException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UtilisateurService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UtilisateurService.class);
+
     @Autowired
     private UtilisateurRepository utilisateurRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     public List<Utilisateur> recupererTousLesUtilisateurs() {
+        logger.info("Récupération de tous les utilisateurs");
         return utilisateurRepository.findAll();
     }
-    public Optional<Utilisateur> recupererUtilisateurParId(Long id) {
-        return utilisateurRepository.findById(id);
+
+    public Utilisateur recupererUtilisateurParId(Long id) {
+        logger.info("Recherche de l'utilisateur avec l'ID : {}", id);
+        return utilisateurRepository.findById(id)
+                .orElseThrow(() -> {
+                    logger.error("Utilisateur avec l'ID {} non trouvé.", id);
+                    return new UtilisateurNonTrouveException("Utilisateur avec l'ID " + id + " non trouvé.");
+                });
     }
 
-    public Optional<Utilisateur> recupererUtilisateurParLogin(String login) {
-        return utilisateurRepository.findByLogin(login);
+    public Utilisateur recupererUtilisateurParLogin(String login) {
+        logger.info("Recherche de l'utilisateur avec le login : {}", login);
+        return utilisateurRepository.findByLogin(login)
+                .orElseThrow(() -> {
+                    logger.error("Utilisateur avec le login {} non trouvé.", login);
+                    return new UtilisateurNonTrouveException("Utilisateur avec le login '" + login + "' non trouvé.");
+                });
     }
 
     public Utilisateur ajouterUtilisateur(Utilisateur utilisateur) {
-        System.out.println("Utilisateur avant sauvegarde : " + utilisateur);
-
-        // Encodage du mot de passe
+        logger.info("Ajout d'un nouvel utilisateur : {}", utilisateur);
         utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
-
         Utilisateur savedUser = utilisateurRepository.save(utilisateur);
-        System.out.println("Utilisateur après sauvegarde : " + savedUser);
-
+        logger.info("Utilisateur ajouté avec succès : {}", savedUser);
         return savedUser;
     }
 
-
     public void supprimerUtilisateur(Long id) {
+        logger.info("Suppression de l'utilisateur avec l'ID : {}", id);
         utilisateurRepository.deleteById(id);
     }
 
-    public Optional<Utilisateur> connecterUtilisateur(String login, String motDePasse) {
-        Optional<Utilisateur> utilisateur = utilisateurRepository.findByLogin(login);
-        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findByLogin(login);
-        if (optionalUtilisateur.isPresent() && passwordEncoder.matches(motDePasse, optionalUtilisateur.get().getMotDePasse())) {
-            return optionalUtilisateur;
+    public Utilisateur connecterUtilisateur(String login, String motDePasse) {
+        logger.info("Tentative de connexion pour l'utilisateur : {}", login);
+        Utilisateur utilisateur = utilisateurRepository.findByLogin(login)
+                .orElseThrow(() -> {
+                    logger.error("Échec de connexion pour l'utilisateur : {}", login);
+                    return new ConnexionException("Nom d'utilisateur ou mot de passe incorrect.");
+                });
+
+        if (!passwordEncoder.matches(motDePasse, utilisateur.getMotDePasse())) {
+            logger.error("Mot de passe incorrect pour l'utilisateur : {}", login);
+            throw new ConnexionException("Nom d'utilisateur ou mot de passe incorrect.");
         }
 
-        return Optional.empty();
+        logger.info("Connexion réussie pour l'utilisateur : {}", login);
+        return utilisateur;
     }
-
-
 }

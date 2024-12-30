@@ -23,18 +23,18 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Désactive CSRF pour simplifier les tests
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/utilisateurs/connexion", "/css/**").permitAll() // Autorise la connexion et les CSS
-                                .requestMatchers("/utilisateurs/logout", "/css/**").permitAll() // Autorise la connexion et les CSS
-                                .requestMatchers("/feedbacks/formulaire/**", "/css/**").permitAll() // Autorise la connexion et les CSS
+//                                .requestMatchers("/utilisateurs/connexion", "/css/**").permitAll() // Autorise la connexion et les CSS
+//                                .requestMatchers("/utilisateurs/logout", "/css/**").permitAll() // Autorise la connexion et les CSS
+//                                .requestMatchers("/feedbacks/formulaire/**", "/css/**").permitAll() // Autorise la connexion et les CSS
+//
+//                                .requestMatchers(HttpMethod.POST, "/utilisateurs/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
+//                                .requestMatchers(HttpMethod.POST, "/feedbacks/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
+//                                .requestMatchers(HttpMethod.POST, "/outils/**","/css/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
+//
+////                        .requestMatchers("/outils/**").hasRole("ADMIN") // Seuls les admins ont accès à /outils/**
+//                                .requestMatchers("/outils/**","/css/**").permitAll()// Seuls les admins ont accès à /outils/**
 
-                                .requestMatchers(HttpMethod.POST, "/utilisateurs/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
-                                .requestMatchers(HttpMethod.POST, "/feedbacks/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
-                                .requestMatchers(HttpMethod.POST, "/outils/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
-
-//                        .requestMatchers("/outils/**").hasRole("ADMIN") // Seuls les admins ont accès à /outils/**
-                        .requestMatchers("/outils/**").permitAll()// Seuls les admins ont accès à /outils/**
-
-                        .anyRequest().authenticated() // Le reste nécessite une authentification
+                                .anyRequest().permitAll() // Le reste nécessite une authentification
                 )
 
                 .formLogin(form -> form.disable()) // Désactive la gestion de login automatique

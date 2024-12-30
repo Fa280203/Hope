@@ -71,9 +71,7 @@ public class FeedbackController {
         Outil outil = outilService.recupererOutilParId(outilId)
                 .orElseThrow(() -> new IllegalArgumentException("Outil introuvable"));
 
-        Utilisateur utilisateur = utilisateurService.recupererUtilisateurParLogin(login)
-                .orElseThrow(() -> new IllegalArgumentException("Utilisateur introuvable"));
-
+        Utilisateur utilisateur = utilisateurService.recupererUtilisateurParLogin(login);
         Feedback feedback = new Feedback();
         feedback.setContenu(contenu);
         feedback.setOutil(outil);

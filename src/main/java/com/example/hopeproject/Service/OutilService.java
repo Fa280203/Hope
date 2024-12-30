@@ -1,5 +1,6 @@
 package com.example.hopeproject.Service;
 
+import com.example.hopeproject.Exceptions.OutilIntrouvableException;
 import com.example.hopeproject.Modele.Outil;
 import com.example.hopeproject.Repository.OutilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,32 +28,20 @@ public class OutilService {
     }
 
     public void supprimerOutil(Long id) {
+        if (!outilRepository.existsById(id)) {
+            throw new OutilIntrouvableException("Outil avec l'ID " + id + " introuvable.");
+        }
         outilRepository.deleteById(id);
     }
-    public List<Outil> recupererOutilsNonValides() {
-        return outilRepository.findByBooleanWithDefaultValue(false);
-    }
+
     public List<Outil> recupererOutilsValides() {
         return outilRepository.findByBooleanWithDefaultValue(true);
     }
-    public List<Outil> rechercherOutils(String query) {
-        return outilRepository.findByTitreContainingIgnoreCaseOrDomaineContainingIgnoreCaseOrDescriptionSimpleContainingIgnoreCase(
-                query, query, query);
-    }
-    public List<Outil> rechercherParTitre(String query) {
-        return outilRepository.findByTitreContainingIgnoreCase(query);
+
+    public List<Outil> recupererOutilsNonValides() {
+        return outilRepository.findByBooleanWithDefaultValue(false);
     }
 
-    public List<Outil> rechercherParDomaine(String query) {
-        return outilRepository.findByDomaineContainingIgnoreCase(query);
-    }
-
-    public List<Outil> rechercherParDescription(String query) {
-        return outilRepository.findByDescriptionSimpleContainingIgnoreCase(query);
-    }
-    public List<String> recupererDomaines() {
-        return outilRepository.findDistinctDomaines();
-    }
     public List<Outil> rechercherOutils(String query, String domaine) {
         if (query == null && (domaine == null || domaine.isEmpty())) {
             return recupererOutilsValides(); // Si aucun critère, retourne tous les outils valides
@@ -65,9 +54,7 @@ public class OutilService {
         }
     }
 
-
-
-
-
-
+    public List<String> recupererDomaines() {
+        return outilRepository.findDistinctDomaines();
+    }
 }
