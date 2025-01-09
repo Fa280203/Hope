@@ -51,4 +51,3 @@ public interface OutilRepository extends JpaRepository<Outil, Long> {
     @Query("SELECT DISTINCT o.domaine FROM Outil o WHERE o.domaine IS NOT NULL")
     List<String> findDistinctDomaines();
 }
-
