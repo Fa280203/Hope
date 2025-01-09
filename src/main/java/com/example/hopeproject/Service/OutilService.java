@@ -44,13 +44,19 @@ public class OutilService {
 
     public List<Outil> rechercherOutils(String query, String domaine) {
         if (query == null && (domaine == null || domaine.isEmpty())) {
-            return recupererOutilsValides(); // Si aucun critère, retourne tous les outils valides
+            // Si aucun critère n'est fourni, retourne tous les outils validés
+            return outilRepository.findByBooleanWithDefaultValue(true);
         } else if (query != null && (domaine == null || domaine.isEmpty())) {
-            return outilRepository.findByTitreContainingIgnoreCaseOrDescriptionSimpleContainingIgnoreCase(query, query);
+            // Rechercher uniquement les outils validés avec un titre ou une description contenant la query
+            return outilRepository.findByTitreContainingIgnoreCaseAndBooleanWithDefaultValueOrDescriptionSimpleContainingIgnoreCaseAndBooleanWithDefaultValue(
+                    query, true, query, true);
         } else if (query == null) {
-            return outilRepository.findByDomaine(domaine);
+            // Rechercher uniquement les outils validés dans un domaine spécifique
+            return outilRepository.findByDomaineAndBooleanWithDefaultValue(domaine, true);
         } else {
-            return outilRepository.findByDomaineAndTitreOrDescription(domaine, query);
+            // Rechercher par domaine et mots-clés, uniquement pour les outils validés
+            return outilRepository.findByDomaineAndTitreContainingIgnoreCaseAndBooleanWithDefaultValueOrDomaineAndDescriptionSimpleContainingIgnoreCaseAndBooleanWithDefaultValue(
+                    domaine, query, true, domaine, query, true);
         }
     }
 

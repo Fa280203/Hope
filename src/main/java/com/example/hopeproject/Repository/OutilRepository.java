@@ -25,6 +25,14 @@ public interface OutilRepository extends JpaRepository<Outil, Long> {
     // Recherche par domaine uniquement
     List<Outil> findByDomaine(String domaine);
 
+    List<Outil> findByTitreContainingIgnoreCaseAndBooleanWithDefaultValueOrDescriptionSimpleContainingIgnoreCaseAndBooleanWithDefaultValue(
+            String titre, boolean booleanWithDefaultValue1, String description, boolean booleanWithDefaultValue2);
+
+    List<Outil> findByDomaineAndBooleanWithDefaultValue(String domaine, boolean booleanWithDefaultValue);
+
+    List<Outil> findByDomaineAndTitreContainingIgnoreCaseAndBooleanWithDefaultValueOrDomaineAndDescriptionSimpleContainingIgnoreCaseAndBooleanWithDefaultValue(
+            String domaine, String titre, boolean booleanWithDefaultValue1, String domaine2, String description, boolean booleanWithDefaultValue2);
+
     // Recherche par domaine et titre/description
     @Query("SELECT o FROM Outil o WHERE o.domaine = :domaine AND (o.titre LIKE %:query% OR o.descriptionSimple LIKE %:query%)")
     List<Outil> findByDomaineAndTitreOrDescription(@Param("domaine") String domaine, @Param("query") String query);
