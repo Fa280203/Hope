@@ -38,5 +38,6 @@ public interface OutilRepository extends JpaRepository<Outil, Long> {
     List<Outil> findByDomaineAndTitreOrDescription(@Param("domaine") String domaine, @Param("query") String query);
 
 
+    List<String> findDistinctDomainesForValidOutils();
 }
 

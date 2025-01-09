@@ -61,6 +61,7 @@ public class OutilService {
     }
 
     public List<String> recupererDomaines() {
-        return outilRepository.findDistinctDomaines();
+        return outilRepository.findDistinctDomainesForValidOutils();
     }
+
 }

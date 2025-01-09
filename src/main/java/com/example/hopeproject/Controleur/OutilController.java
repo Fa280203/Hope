@@ -252,10 +252,15 @@ public class OutilController {
         model.addAttribute("nom", nom);
         model.addAttribute("prenom", prenom);
 
+        // Recherche des outils validés uniquement
         List<Outil> resultats = outilService.rechercherOutils(query, domaine);
         model.addAttribute("outils", resultats);
-        model.addAttribute("domaines", outilService.recupererDomaines());
+
+        // Récupération des domaines pour les outils validés uniquement
+        List<String> domaines = outilService.recupererDomaines();
+        model.addAttribute("domaines", domaines);
 
         return "outils";
     }
+
 }
