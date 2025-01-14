@@ -51,4 +51,7 @@ public class FeedbackService {
     public boolean existeFeedback(Long id) {
         return feedbackRepository.existsById(id);
     }
+    public List<Feedback> recupererFeedbacksParUtilisateurEtOutil(Long utilisateurId, Long outilId) {
+        return feedbackRepository.findByUtilisateurIdAndOutilId(utilisateurId, outilId);
+    }
 }

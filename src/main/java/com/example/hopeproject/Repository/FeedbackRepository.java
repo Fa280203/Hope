@@ -14,6 +14,9 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     List<Feedback> findByOutilId(Long outilId);
     List<Feedback> findByUtilisateurId(Long utilisateurId);
 
+    List<Feedback> findByUtilisateurIdAndOutilId(Long utilisateurId, Long outilId);
+
+
     @Transactional
     @Modifying
     @Query("DELETE FROM Feedback f WHERE f.outil.id = :outilId")

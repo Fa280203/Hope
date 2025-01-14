@@ -51,8 +51,8 @@ public class FeedbackController {
             @ApiResponse(responseCode = "404", description = "Outil introuvable")
     })
     @PostMapping("/ajouter")
-    @ResponseBody
-    public ResponseEntity<String> ajouterFeedback(
+
+    public String ajouterFeedback(
             @RequestParam String contenu,
             @RequestParam Long outilId,
             HttpSession session
@@ -65,7 +65,7 @@ public class FeedbackController {
             throw new UtilisateurNonTrouveException("Vous devez être connecté pour ajouter un feedback.");
         }
 
-        List<Feedback> userFeedbacks = feedbackService.recupererFeedbacksParUtilisateur(utilisateurId);
+        List<Feedback> userFeedbacksForOutil = feedbackService.recupererFeedbacksParUtilisateurEtOutil(utilisateurId, outilId);
 
         // Gestion des quotas en fonction du rôle
         int maxFeedbacks = switch (role) {
@@ -75,8 +75,8 @@ public class FeedbackController {
             default -> 1; // Par défaut
         };
 
-        if (userFeedbacks.size() >= maxFeedbacks) {
-            throw new FeedbackQuotaExceededException("Vous avez atteint le quota maximum de " + maxFeedbacks + " feedbacks.");
+        if (userFeedbacksForOutil.size() >= maxFeedbacks) {
+            throw new FeedbackQuotaExceededException("Vous avez atteint le quota maximum de " + maxFeedbacks + " feedbacks pour cet outil.");
         }
 
         Outil outil = outilService.recupererOutilParId(outilId)
@@ -90,7 +90,7 @@ public class FeedbackController {
 
         feedbackService.ajouterFeedback(feedback);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Feedback ajouté avec succès.");
+        return "redirect:/outils";
     }
 
     @Operation(summary = "Supprimer un feedback", description = "Supprime un feedback via son ID.")
