@@ -116,7 +116,6 @@ public class OutilController {
         nouvelOutil.setLien(lien);
         nouvelOutil.setAcces(acces);
 
-        // Validation basée sur le rôle
         if ("ADMIN".equals(role)) {
             nouvelOutil.setBooleanWithDefaultValue(true); // Ajout direct pour les admins
         } else {
@@ -159,7 +158,6 @@ public class OutilController {
     @Operation(summary = "Afficher les détails d'un outil", description = "Affiche les détails d'un outil spécifique ainsi que ses feedbacks associés.")
     @GetMapping("/details/{uuid}")
     public String afficherDetailsOutil(@PathVariable String uuid, Model model) {
-        // Récupérer l'outil par UUID au lieu de par ID
         Outil outil = outilService.recupererOutilParUuid(uuid)
                 .orElseThrow(() -> new OutilIntrouvableException("Outil introuvable."));
         List<Feedback> feedbacks = feedbackService.recupererFeedbacksParOutil(outil.getId());
@@ -172,6 +170,7 @@ public class OutilController {
         model.addAttribute("lien", outil.getLien());
         model.addAttribute("feedbacks", feedbacks);
         model.addAttribute("outilUuid", outil.getUuid());
+        model.addAttribute("outilId", outil.getId());
 
         return "details";
     }
