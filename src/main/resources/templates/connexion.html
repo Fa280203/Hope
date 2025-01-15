@@ -1,29 +1,55 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion</title>
+    <!-- Police moderne : Poppins ou Montserrat (Google Fonts) -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+            rel="stylesheet"
+    />
+    <!-- Feuille de style principale -->
     <link rel="stylesheet" th:href="@{/css/connexion.css}">
 </head>
-<header>
-    <div class="header-container">
-        <h1>HOPE</h1>
-        <p>Hub des Outils et Plateformes pour les Enseignements</p>
-    </div>
-</header>
 <body>
-<h1>Connexion</h1>
-<form action="/utilisateurs/connexion" method="post">
-    <div>
-        <label for="username">Identifiant :</label>
-        <input type="text" id="username" name="username" autocomplete="username" required>
+
+<!-- Barre de navigation fixe avec flou -->
+<nav class="navbar">
+    <div class="navbar-logo">Hope</div>
+    <ul class="navbar-links">
+        <li><h1 href="#hero">Hub des Outils et Plateforme pour les Enseigements</h1></li>
+    </ul>
+    <div class="theme-toggle" id="themeToggle">
+        <!-- Icône ou bouton pour switcher le mode sombre / clair -->
+        <span>Dark Mode</span>
     </div>
-    <div>
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" autocomplete="current-password" required>
-    </div>
-    <button type="submit">Se connecter</button>
-</form>
+</nav>
+
+<!-- Section Connexion -->
+<section id="connexion" class="login-section">
+    <h2>Connexion</h2>
+    <form action="/utilisateurs/connexion" method="post">
+        <div>
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" name="username" autocomplete="username" required>
+        </div>
+
+        <div>
+            <label for="password">Mot de Passe</label>
+            <input type="password" id="password" name="password" autocomplete="current-password" required>
+        </div>
+
+        <button type="submit" class="login-button">Connexion</button>
+    </form>
+</section>
+
+<!-- Pied de page -->
+<footer>
+    <p>&copy; 2025 - Réalisé par la Dream Team :) Tous droits réservés.</p>
+</footer>
+
+<!-- JavaScript pour le mode sombre et les animations au scroll -->
+<script src="/app.js"></script>
 </body>
 </html>

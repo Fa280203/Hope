@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Détails de l'Outil</title>
+    <!-- Police moderne : Poppins (Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <!-- Feuille de style principale -->
     <link rel="stylesheet" th:href="@{/css/details.css}">
-    <meta charset="UTF-8">
 </head>
 <body>
-<header>
-    <div class="header-container">
-        <h1>HOPE</h1>
-    </div>
-</header>
 
-<main>
-    <h1>Détails de l'outil</h1>
+<!-- Barre de navigation fixe avec flou -->
+<nav class="navbar">
+    <div class="navbar-logo">Hope</div>
+    <ul class="navbar-links">
+        <li><h1>Hub des Outils et Plateforme pour les Enseignements</h1></li>
+    </ul>
+    <div class="theme-toggle" id="themeToggle">
+        <span>Dark Mode</span>
+    </div>
+</nav>
+
+<!-- Section Détails de l'Outil -->
+<section id="details-outil" class="details-section">
+    <h2>Détails de l'Outil</h2>
     <div class="details-container">
         <p><strong>Titre :</strong> <span th:text="${titre}"></span></p>
         <p><strong>Domaine :</strong> <span th:text="${domaine}"></span></p>
@@ -32,7 +43,7 @@
         <a th:href="@{/outils/modifier/{id}(id=${outilId})}" class="btn-modifier">Modifier</a>
     </div>
 
-    <div th:if="${!feedbacks.isEmpty()}">
+    <div class="feedbacks-container" th:if="${!feedbacks.isEmpty()}">
         <ul>
             <li th:each="feedback : ${feedbacks}">
                 <strong th:text="${feedback.utilisateur.nom + ' ' + feedback.utilisateur.prenom}"></strong> :
@@ -41,8 +52,15 @@
         </ul>
     </div>
 
-    <a href="/outils">Retour à la liste</a>
-</main>
-</body>
+    <a href="/outils" class="back-link">Retour à la liste</a>
+</section>
 
+<!-- Pied de page -->
+<footer>
+    <p>&copy; 2025 - Réalisé par la Dream Team :) Tous droits réservés.</p>
+</footer>
+
+<!-- JavaScript pour le mode sombre et les animations au scroll -->
+<script src="/app.js"></script>
+</body>
 </html>

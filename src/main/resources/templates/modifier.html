@@ -1,54 +1,70 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Modifier un Outil</title>
+  <!-- Police moderne : Poppins (Google Fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- Feuille de style principale -->
   <link rel="stylesheet" th:href="@{/css/modifier.css}">
-  <meta charset="UTF-8">
 </head>
 <body>
-<header>
-  <div class="header-container">
-    <h1>HOPE</h1>
+
+<!-- Barre de navigation fixe avec flou -->
+<nav class="navbar">
+  <div class="navbar-logo">Hope</div>
+  <ul class="navbar-links">
+    <li><h1>Hub des Outils et Plateforme pour les Enseignements</h1></li>
+  </ul>
+  <div class="theme-toggle" id="themeToggle">
+    <span>Dark Mode</span>
   </div>
-</header>
+</nav>
 
-<h1>Modifier l'Outil</h1>
+<!-- Section Modifier un Outil -->
+<section id="modifier-outil" class="form-section">
+  <h2>Modifier l'Outil</h2>
+  <form th:action="@{/outils/modifier}" method="post">
+    <input type="hidden" name="id" th:value="${outil.id}" />
 
-<!-- Formulaire pour modifier un outil -->
-<form th:action="@{/outils/modifier}" method="post">
-  <input type="hidden" name="id" th:value="${outil.id}" />
+    <div>
+      <label for="titre">Titre :</label>
+      <input type="text" id="titre" name="titre" th:field="${outil.titre}" required />
+    </div>
 
-  <div>
-    <label for="titre">Titre :</label>
-    <input type="text" id="titre" name="titre" th:field="${outil.titre}" required />
-  </div>
+    <div>
+      <label for="domaine">Domaine :</label>
+      <input type="text" id="domaine" name="domaine" th:field="${outil.domaine}" required />
+    </div>
 
-  <div>
-    <label for="domaine">Domaine :</label>
-    <input type="text" id="domaine" name="domaine" th:field="${outil.domaine}" required />
-  </div>
+    <div>
+      <label for="descriptionSimple">Description Simple :</label>
+      <textarea id="descriptionSimple" name="descriptionSimple" th:field="${outil.descriptionSimple}" required></textarea>
+    </div>
 
-  <div>
-    <label for="descriptionSimple">Description Simple :</label>
-    <textarea id="descriptionSimple" name="descriptionSimple" th:field="${outil.descriptionSimple}" required>
-    </textarea>
-  </div>
+    <div>
+      <label for="lien">Lien :</label>
+      <input type="url" id="lien" name="lien" th:field="${outil.lien}" required />
+    </div>
 
-  <div>
-    <label for="lien">Lien :</label>
-    <input type="url" id="lien" name="lien" th:field="${outil.lien}" required />
-  </div>
+    <div>
+      <label for="acces">Accès :</label>
+      <textarea id="acces" name="acces" th:field="${outil.acces}" required></textarea>
+    </div>
 
-  <div>
-    <label for="acces">Accès :</label>
-    <textarea id="acces" name="acces" th:field="${outil.acces}" required>
-    </textarea>
-  </div>
+    <button type="submit" class="form-button">Enregistrer les modifications</button>
+  </form>
 
-  <button type="submit">Enregistrer les modifications</button>
-</form>
+  <a href="/outils" class="back-link">Retour à la liste</a>
+</section>
 
-<a href="/outils">Retour à la liste</a>
+<!-- Pied de page -->
+<footer>
+  <p>&copy; 2025 - Réalisé par la Dream Team :) Tous droits réservés.</p>
+</footer>
 
+<!-- JavaScript pour le mode sombre et les animations au scroll -->
+<script src="/app.js"></script>
 </body>
 </html>

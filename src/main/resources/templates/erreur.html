@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Erreur</title>
+  <!-- Police moderne : Poppins (Google Fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" th:href="@{/css/erreur.css}">
 </head>
 <body>
-<h1>Une erreur est survenue</h1>
-<p>Message : <span th:text="${errorMessage}">Erreur inconnue</span></p>
+
+<section class="error-section">
+  <h1>Une erreur est survenue</h1>
+  <p class="error-message">Message : <span th:text="${errorMessage}">Erreur inconnue</span></p>
+  <a href="/" class="home-link">Retour à l'accueil</a>
+</section>
+
 </body>
 </html>

@@ -1,44 +1,72 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajouter un Feedback</title>
+    <!-- Police moderne : Poppins (Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <!-- Feuille de style principale -->
     <link rel="stylesheet" th:href="@{/css/feedback.css}">
-    <meta charset="UTF-8">
 </head>
-<header>
-    <div class="header-container">
-        <h1>HOPE</h1>
-        <div>
-            <span th:if="${session.role == 'ADMIN'}">
-                Bienvenue, Administrateur <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
-            </span>
-            <span th:if="${session.role == 'ENSEIGNANT'}">
-                Bienvenue, Enseignant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
-            </span>
-            <span th:if="${session.role == 'ETUDIANT'}">
-                Bienvenue, Étudiant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
-            </span>
+<body>
+
+<!-- Barre de navigation fixe avec flou -->
+<nav class="navbar">
+    <div class="navbar-logo">Hope</div>
+    <ul class="navbar-links">
+        <li><h1>Hub des outils et plateformes pour les enseignements</h1></li>
+    </ul>
+    <div class="theme-toggle" id="themeToggle">
+        <span>Dark Mode</span>
+    </div>
+</nav>
+
+<!-- HEADER (informations utilisateur & logout) -->
+<header class="header-container">
+    <div class="user-info">
+        <span th:if="${session.role == 'ADMIN'}">
+            Bienvenue, Administrateur <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+        </span>
+        <span th:if="${session.role == 'ENSEIGNANT'}">
+            Bienvenue, Enseignant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+        </span>
+        <span th:if="${session.role == 'ETUDIANT'}">
+            Bienvenue, Étudiant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+        </span>
+        <div class="user-info">
+            <!-- Bouton de déconnexion -->
             <a href="/utilisateurs/logout" class="logout-button">Se déconnecter</a>
         </div>
     </div>
 </header>
-<body>
-<h1>Ajouter un Feedback</h1>
 
-<div th:if="${message}" style="color: red;">
-    <p th:text="${message}"></p>
-</div>
+<!-- SECTION Ajouter Feedback -->
+<section class="feedback-section">
+    <h2>Ajouter un Feedback</h2>
 
-<form th:action="@{/feedbacks/ajouter}" method="post">
-    <div>
-        <label for="contenu">Contenu du Feedback :</label>
-        <textarea id="contenu" name="contenu" required></textarea>
+    <div th:if="${message}" class="feedback-message">
+        <p th:text="${message}"></p>
     </div>
-    <input type="hidden" id="outilId" name="outilId" th:value="${outilId}">
-    <button type="submit">Ajouter</button>
-</form>
 
-<a href="/outils">Retour à la liste des outils</a>
+    <form th:action="@{/feedbacks/ajouter}" method="post" class="feedback-form">
+        <div>
+            <label for="contenu">Contenu du Feedback :</label>
+            <textarea id="contenu" name="contenu" required></textarea>
+        </div>
+        <input type="hidden" id="outilId" name="outilId" th:value="${outilId}">
+        <button type="submit" class="form-button">Ajouter</button>
+    </form>
+
+    <a href="/outils" class="back-link">Retour à la liste des outils</a>
+</section>
+
+<!-- Pied de page -->
+<footer>
+    <p>&copy; 2025 - Réalisé par la Dream Team :) Tous droits réservés.</p>
+</footer>
+
+<!-- JavaScript pour le mode sombre -->
+<script src="/app.js"></script>
 </body>
-
 </html>

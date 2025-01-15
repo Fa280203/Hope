@@ -1,192 +1,465 @@
-/* Style général */
-/* Header universel */
-
-header {
-    background-image: url('couverture.jpg');  /* Lien vers l'image de fond */
-    background-size: cover;  /* L'image couvre toute la largeur et la hauteur du header */
-    background-position: top;
-
-    background-color: #3323a8;  /* Couleur de fond pour le header */
-    color: white;  /* Couleur du texte pour tout le header */
-    padding: 20px 0;  /* Espacement vertical */
-    text-align: center;  /* Centrer le texte */
-    margin-bottom: 30px;  /* Espacement sous le header */
-    width: 100%;  /* Largeur totale */
-    height: 120px;  /* Fixer une hauteur pour le header (ajuste si nécessaire) */
-}
-
-.header-container h1 {
+/***********************************************************
+  RÉINITIALISATION DE BASE
+************************************************************/
+* {
     margin: 0;
-    font-size: 3em;  /* Taille de la police pour le titre */
-    font-weight: bold;  /* Police en gras */
-    color: white;  /* Texte du titre en blanc */
-    line-height: 120px;
-}
-
-/*.header-container p {
-    margin: 5px 0 0 0;  /* Espacement sous le titre */
-/*font-size: 1.2em;  /* Taille de la police pour la description */
-/*font-style: italic;  /* Italique pour le sous-titre */
-
-/* Style général pour les boutons */
-.btn-ajouter {
-    display: inline-block;
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #4CAF50; /* Vert pour les actions positives */
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    cursor: pointer;
-}
-
-.btn-ajouter:hover {
-    background-color: #45a049;
-    transform: scale(1.05); /* Effet de zoom */
-}
-
-/* Bouton spécifique pour l'admin */
-.btn-admin {
-    background-color: #ffa500; /* Orange pour des actions spécifiques à l'admin */
-}
-
-.btn-admin:hover {
-    background-color: #e69500;
-}
-
-/* Container des boutons */
-.button-container {
-    margin: 20px 0;
-    text-align: center; /* Centrer les boutons */
-}
-
-.search-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    width: 100%;
-    padding: 0 10%;
+    padding: 0;
     box-sizing: border-box;
 }
 
-.search-container input[type="text"],
-.search-container select,
-.search-container button {
-    width: 100%; /* 100% de la largeur du conteneur */
-    padding: 15px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Bouton de recherche */
-.search-container button {
-    width: 100%; /* 100% de la largeur du conteneur */
+/***********************************************************
+  STYLE GÉNÉRAL & FOND
+************************************************************/
+body {
+    /* Gradient diagonal (bleu -> rose) */
+    background: linear-gradient(135deg, #4F9DFB 0%, #FF5894 100%);
+    background-attachment: fixed;
+    color: #fff;
+    overflow-x: hidden; /* Évite tout défilement horizontal */
+    position: relative; /* Pour le pseudo-élément body::before */
+}
 
-    background-color: #4CAF50; /* Vert */
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
+/* Lignes courbes blanches fines et semi-transparentes */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    opacity: 0.15;
+    pointer-events: none; /* Empêche les interactions */
+    z-index: -1;
+}
+
+/***********************************************************
+  BARRE DE NAVIGATION FIXE
+************************************************************/
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    z-index: 999;
     transition: background-color 0.3s ease;
 }
 
-.search-container button:hover {
-    background-color: #45a049;
+.navbar-logo {
+    font-weight: 900;
+    font-size: 1.8em;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links li {
+    position: relative;
 }
 
 
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f9f9f9;
-    color: #333;
-    line-height: 1.6;
+.navbar-links a,
+.navbar-links h1 {
+    /* h1 dans <li> (cas: hub des outils...) */
+    font-size: 1.2em;
+    color: #fff;
 }
 
-h1 {
+.navbar-links a:hover,
+.navbar-links h1:hover {
+    color: #FFD9E1; /* Légère nuance rosée */
+}
+
+/* Au défilement, la navbar change légèrement */
+.scrolled {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/***********************************************************
+  BOUTON SWITCH MODE SOMBRE
+************************************************************/
+.theme-toggle {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    transition: background 0.3s ease;
+    color: #fff;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/***********************************************************
+  HEADER (Bienvenue + logout)
+************************************************************/
+.header-container {
+    max-width: 1200px;
+    margin: 100px auto 40px; /* On laisse de la place pour la navbar */
+    padding: 0 20px;
     text-align: center;
-    color: #252D30FF;
-    margin-bottom: 20px;
 }
 
-a {
-    color: #4838b2;
+.header-container h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.logout-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: #fff;
     text-decoration: none;
+    margin-left: 15px;
+
+    transition: background-color 0.3s;
 }
 
-a:hover {
-    text-decoration: underline;
+.user-info {
+    display: flex;          /* Utilisation de Flexbox pour gérer l'alignement */
+    justify-content: flex-end; /* Aligner les éléments (ici le bouton) à droite */
+    padding-right: 5px;    /* Espacement à droite pour l'esthétique */
 }
 
-/* Table */
+
+.logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/***********************************************************
+  ZONE DE RECHERCHE
+************************************************************/
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.search-container form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-input {
+    width: 300px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+    font-size: 0.95em;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.search-input:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+.search-select {
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Options du menu déroulant */
+.search-select option {
+    color: #333; /* Texte en gris foncé */
+    background-color: #fff; /* Fond blanc */
+    font-weight: 400; /* Police normale pour les options */
+}
+
+.search-select:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+.search-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.search-button:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
+}
+
+/***********************************************************
+  BOUTONS D’ACTION (AJOUTER, VALIDER)
+************************************************************/
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.btn-ajouter,
+.btn-admin {
+    padding: 12px 20px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-ajouter:hover,
+.btn-admin:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/***********************************************************
+  CONTENU PRINCIPAL
+************************************************************/
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    text-align: center;
+}
+
+main h1 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Message quand le tableau est vide */
+.empty-table-message {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/***********************************************************
+  TABLEAU LISTE DES OUTILS
+************************************************************/
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-
-table th, table td {
-    padding: 12px 15px;
-    text-align: left;
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    overflow: hidden; /* Arrondir le contenu */
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 table thead {
-    background-color: #252D30FF;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table th {
+    font-weight: 700;
     color: #fff;
-    text-transform: uppercase;
-    font-size: 14px;
 }
 
-table tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
+table td {
+    color: #f0f0f0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-table tbody tr:hover {
-    background-color: #faf5ea;
+table tr:hover td {
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* Boutons et liens dans la table */
-table td a {
-    padding: 5px 10px;
-    border: 1px solid #b27d38;
-    border-radius: 3px;
-    background-color: #efa904;
+table a {
+    color: #FFD9E1;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+table a:hover {
+    color: #ffffff;
+}
+
+/***********************************************************
+  MODE SOMBRE (DARK MODE) - GLOBAL
+************************************************************/
+body.dark-mode {
+    background: linear-gradient(135deg, #0a0f18 0%, #192841 100%);
+    color: #ccc;
+}
+
+body.dark-mode::before {
+    background-size: cover;
+    opacity: 0.1;
+}
+
+body.dark-mode .navbar {
+    background-color: rgba(10, 15, 24, 0.8);
+}
+
+body.dark-mode .navbar-links a,
+body.dark-mode .navbar-links h1 {
+    color: #ccc;
+}
+
+body.dark-mode .navbar-links a:hover,
+body.dark-mode .navbar-links h1:hover {
     color: #fff;
-    font-size: 14px;
-    text-align: center;
-    display: inline-block;
 }
 
-table td a:hover {
-    background-color: #d29503;
-    border-color: #d29503;
+/* Search container en mode sombre */
+body.dark-mode .search-input,
+body.dark-mode .search-select {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ccc;
 }
 
-/* Lien de déconnexion */
-a[href="/logout"] {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #94211a;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
+body.dark-mode .search-input:focus,
+body.dark-mode .search-select:focus {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-a[href="/logout"]:hover {
-    background-color: #94211a;
+body.dark-mode .search-button {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+body.dark-mode .search-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Boutons d’action en mode sombre */
+body.dark-mode .btn-ajouter,
+body.dark-mode .btn-admin,
+body.dark-mode .logout-button {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .btn-ajouter:hover,
+body.dark-mode .btn-admin:hover,
+body.dark-mode .logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Table en mode sombre */
+body.dark-mode table {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode table thead {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode table tr:hover td {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+body.dark-mode table td,
+body.dark-mode table th {
+    color: #ccc;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode table a {
+    color: #FF8FB7;
+}
+
+body.dark-mode table a:hover {
+    color: #fff;
+}
+
+/***********************************************************
+  RESPONSIVE
+************************************************************/
+@media (max-width: 768px) {
+    .navbar-links {
+        display: none; /* Ou un menu burger */
+    }
+
+    /* Table : scroll horizontal si écran trop petit */
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .search-container form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .search-select {
+        width: 100%;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-container h1 {
+        font-size: 2em;
+    }
+
+    main h1 {
+        font-size: 1.6em;
+    }
+
+    .search-container form {
+        gap: 5px;
+    }
+
+    .search-button {
+        padding: 10px;
+        font-size: 0.9em;
+    }
 }
