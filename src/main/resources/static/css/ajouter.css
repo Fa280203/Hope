@@ -168,3 +168,36 @@ footer {
     width: 100%;
     margin-top: 40px;
 }
+
+/* Mode sombre : On cible body.dark-mode { ... } */
+body.dark-mode {
+    background: linear-gradient(135deg, #0a0f18 0%, #192841 100%);
+    color: #ccc;
+}
+
+body.dark-mode::before {
+/ On peut changer la couleur des lignes courbes /
+background: url("images/curvy-lines-dark.svg") no-repeat center center;
+    background-size: cover;
+    opacity: 0.1;
+}
+
+body.dark-mode .navbar {
+    background-color: rgba(10, 15, 24, 0.8);
+}
+
+body.dark-mode .navbar-links a {
+    color: #ccc;
+}
+
+body.dark-mode .navbar-links a:hover {
+    color: #fff;
+}
+
+body.dark-mode .service-card {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .service-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
