@@ -33,8 +33,7 @@
     <td th:text="${outil.domaine}"></td>
     <td th:text="${outil.descriptionSimple}"></td>
     <td>
-      <form th:action="@{/outils/details/{uuid}(uuid=${outil.uuid})}" method="post" style="display:inline;">
-        <button type="submit">Valider</button>
+      <form th:action="@{/outils/valider/{id}(id=${outil.id})}" method="post" style="display:inline;">        <button type="submit">Valider</button>
       </form>
     </td>
   </tr>
