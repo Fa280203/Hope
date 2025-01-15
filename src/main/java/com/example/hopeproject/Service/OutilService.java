@@ -14,7 +14,9 @@ public class OutilService {
 
     @Autowired
     private OutilRepository outilRepository;
-
+    public Optional<Outil> recupererOutilParUuid(String uuid) {
+        return outilRepository.findByUuid(uuid);
+    }
     public List<Outil> recupererTousLesOutils() {
         return outilRepository.findAll();
     }
