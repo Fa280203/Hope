@@ -4,11 +4,11 @@ import com.example.hopeproject.Modele.Outil;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
+import java.util.Optional;
 import java.util.List;
 
 public interface OutilRepository extends JpaRepository<Outil, Long> {
-
+    Optional<Outil> findByUuid(String uuid);
     // Récupérer les outils par domaine contenant une chaîne spécifique
     List<Outil> findByDomaineContainingIgnoreCase(String domaine);
 
@@ -50,4 +50,6 @@ public interface OutilRepository extends JpaRepository<Outil, Long> {
     // Requête pour récupérer les domaines distincts (tous outils)
     @Query("SELECT DISTINCT o.domaine FROM Outil o WHERE o.domaine IS NOT NULL")
     List<String> findDistinctDomaines();
+
+
 }

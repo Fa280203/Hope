@@ -2,14 +2,15 @@ package com.example.hopeproject.Modele;
 
 import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Value;
-
+import java.util.UUID;
 @Entity
 public class Outil {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(unique = true, updatable = false, nullable = false)
+    private String uuid;
     private String titre;
     private String domaine;
     private String descriptionSimple;
@@ -49,6 +50,12 @@ public class Outil {
         this.descriptionSimple = descriptionSimple;
         this.lien = lien;
     }
+    @PrePersist
+    public void initializeUUID() {
+        if (this.uuid == null) {
+            this.uuid = UUID.randomUUID().toString();
+        }
+    }
 
     public Outil() {}
 
@@ -61,6 +68,13 @@ public class Outil {
         this.id = id;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
     public String getTitre() {
         return titre;
     }

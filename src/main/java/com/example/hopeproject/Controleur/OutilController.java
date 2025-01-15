@@ -157,11 +157,12 @@ public class OutilController {
 
     // Afficher les détails d'un outil
     @Operation(summary = "Afficher les détails d'un outil", description = "Affiche les détails d'un outil spécifique ainsi que ses feedbacks associés.")
-    @GetMapping("/details/{id}")
-    public String afficherDetailsOutil(@PathVariable Long id, Model model) {
-        Outil outil = outilService.recupererOutilParId(id)
+    @GetMapping("/details/{uuid}")
+    public String afficherDetailsOutil(@PathVariable String uuid, Model model) {
+        // Récupérer l'outil par UUID au lieu de par ID
+        Outil outil = outilService.recupererOutilParUuid(uuid)
                 .orElseThrow(() -> new OutilIntrouvableException("Outil introuvable."));
-        List<Feedback> feedbacks = feedbackService.recupererFeedbacksParOutil(id);
+        List<Feedback> feedbacks = feedbackService.recupererFeedbacksParOutil(outil.getId());
 
         model.addAttribute("titre", outil.getTitre());
         model.addAttribute("descriptionDetaillee", outil.getDescriptionDetaillee());
@@ -169,10 +170,8 @@ public class OutilController {
         model.addAttribute("descriptionSimple", outil.getDescriptionSimple());
         model.addAttribute("domaine", outil.getDomaine());
         model.addAttribute("lien", outil.getLien());
-
-        model.addAttribute("feedbacks", feedbacks); // Ajouter feedbacks au modèle
-
-        model.addAttribute("outilId", outil.getId());
+        model.addAttribute("feedbacks", feedbacks);
+        model.addAttribute("outilUuid", outil.getUuid());
 
         return "details";
     }
