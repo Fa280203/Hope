@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liste des Outils</title>
+    <!-- Police moderne : Poppins (Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <!-- Feuille de style principale -->
+    <link rel="stylesheet" th:href="@{/css/outils.css}">
+</head>
+<body>
+
+<!-- Barre de navigation fixe avec flou -->
+<nav class="navbar">
+    <div class="navbar-logo">Hope</div>
+    <ul class="navbar-links">
+        <li><h1>Hub des outils et plateformes pour les enseignements</h1></li>
+    </ul>
+    <div class="theme-toggle" id="themeToggle">
+        <span>Dark Mode</span>
+    </div>
+</nav>
+
+<!-- HEADER (informations utilisateur & logout) -->
+<header class="header-container">
+    <div class="user-info">
+        <span th:if="${session.role == 'ADMIN'}">
+            Bienvenue, Administrateur <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+        </span>
+        <span th:if="${session.role == 'ENSEIGNANT'}">
+            Bienvenue, Enseignant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+        </span>
+        <span th:if="${session.role == 'ETUDIANT'}">
+            Bienvenue, Étudiant(e) <b th:text="${session.nom}"></b> <b th:text="${session.prenom}"></b> !
+        </span>
+        <div class="user-info">
+            <!-- Bouton de déconnexion -->
+            <a href="/utilisateurs/logout" class="logout-button">Se déconnecter</a>
+        </div>
+    </div>
+</header>
+
+<!-- SECTION DE RECHERCHE -->
+<section class="search-container">
+    <form th:action="@{/outils/recherche}" method="get">
+        <input type="text" name="query" placeholder="Rechercher par titre ou description..." class="search-input" />
+        <select name="domaine" class="search-select">
+            <option value="">Tous les domaines</option>
+            <option th:each="domaine : ${domaines}" th:value="${domaine}" th:text="${domaine}"></option>
+        </select>
+        <button type="submit" class="search-button">Rechercher</button>
+    </form>
+</section>
+
+<!-- BOUTONS D’ACTION -->
+<section class="button-container">
+    <a th:if="${session.role != null}" href="/outils/ajouter" class="btn-ajouter">Ajouter un outil</a>
+    <a th:if="${session.role == 'ADMIN'}" href="/outils/admin/validation" class="btn-admin">Valider demandes d'outils</a>
+</section>
+
+<!-- CONTENU PRINCIPAL : LISTE DES OUTILS -->
+<main>
+    <h1>Liste des Outils</h1>
+
+    <div th:if="${#lists.isEmpty(outils)}" class="empty-table-message">
+        <p>Aucun outil n'est disponible pour le moment.</p>
+    </div>
+
+    <table th:unless="${#lists.isEmpty(outils)}" class="tools-table">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Domaine</th>
+            <th>Description</th>
+            <th>Lien</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="outil : ${outils}">
+            <td th:text="${outil.titre}"></td>
+            <td th:text="${outil.domaine}"></td>
+            <td th:text="${outil.descriptionSimple}"></td>
+            <td>
+                <a th:href="${outil.lien}" target="_blank">Voir</a>
+            </td>
+            <td>
+                <a th:href="@{/outils/details/{uuid}(uuid=${outil.uuid})}" class="details-link">Détails</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<!-- JavaScript pour gérer le mode sombre -->
+<script src="/app.js"></script>
+</body>
+</html>

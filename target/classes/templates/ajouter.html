@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajouter un Outil</title>
+  <!-- Police moderne : Poppins (Google Fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" th:href="@{/css/ajouter.css}">
+</head>
+<body>
+
+<!-- Barre de navigation fixe avec flou -->
+<nav class="navbar">
+  <div class="navbar-logo">Hope</div>
+  <ul class="navbar-links">
+    <li><h1>Hub des Outils et Plateforme pour les Enseignements</h1></li>
+  </ul>
+  <div class="theme-toggle" id="themeToggle">
+    <span>Dark Mode</span>
+  </div>
+</nav>
+
+<!-- Section Ajouter un Outil -->
+<section id="ajouter-outil" class="form-section">
+  <h2>Ajouter un Outil</h2>
+  <form action="/outils/ajouter" method="post">
+    <div>
+      <label for="titre">Titre :</label>
+      <input type="text" id="titre" name="titre" required />
+    </div>
+
+    <div>
+      <label for="domaine">Domaine :</label>
+      <input type="text" id="domaine" name="domaine" required />
+    </div>
+
+    <div>
+      <label for="descriptionSimple">Description Simple :</label>
+      <textarea id="descriptionSimple" name="descriptionSimple" required></textarea>
+    </div>
+
+    <div>
+      <label for="lien">Lien :</label>
+      <input type="url" id="lien" name="lien" required />
+    </div>
+
+    <div>
+      <label for="acces">Accès :</label>
+      <textarea id="acces" name="acces" required></textarea>
+    </div>
+
+    <button type="submit" class="form-button">Ajouter l'Outil</button>
+  </form>
+
+  <a href="/outils" class="back-link">Retour à la liste</a>
+</section>
+
+<!-- Pied de page -->
+<footer>
+  <p>&copy; 2025 - Réalisé par la Dream Team :) Tous droits réservés.</p>
+</footer>
+
+<!-- JavaScript pour le mode sombre et les animations au scroll -->
+<script src="/app.js"></script>
+</body>
+</html>
