@@ -42,9 +42,11 @@
 
 - Le fichier `hope.sql` se trouve à la racine du projet. Il contient les scripts pour recréer les tables nécessaires.
 
+- Le fichier 'rapport_Projet_Java_clean_code.pdf' se trouve à la racine du projet. Il contient la réponse aux questions pour le rapport du projet.
+
 ### 3.3. Étapes pour lancer l'application
 
-xécutez la commande suivante dans votre terminal pour cloner le dépôt Git :
+executez la commande suivante dans votre terminal pour cloner le dépôt Git :
    ```bash
    git clone https://github.com/Fa280203/Hope.git
    cd Hope
