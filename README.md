@@ -44,7 +44,7 @@
 
 ### 3.3. Étapes pour lancer l'application
 
-xécutez la commande suivante dans votre terminal pour cloner le dépôt Git :
+executez la commande suivante dans votre terminal pour cloner le dépôt Git :
    ```bash
    git clone https://github.com/Fa280203/Hope.git
    cd Hope
