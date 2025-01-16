@@ -1,6 +1,5 @@
 package com.example.hopeproject.Controleur;
 
-import com.example.hopeproject.Exceptions.InvalidOutilException;
 import com.example.hopeproject.Exceptions.OutilIntrouvableException;
 import com.example.hopeproject.Modele.Feedback;
 import com.example.hopeproject.Modele.Outil;
@@ -14,7 +13,6 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +33,6 @@ public class OutilController {
     @Autowired
     private FeedbackService feedbackService;
 
-    // Affiche la page des outils validés
     @Operation(summary = "Afficher la page des outils", description = "Affiche tous les outils validés avec des informations de session.")
     @GetMapping
     public String afficherPageOutils(Model model, HttpSession session) {
@@ -52,7 +49,6 @@ public class OutilController {
         return "outils";
     }
 
-    // API REST pour récupérer tous les outils
     @Operation(summary = "Récupérer tous les outils (API)", description = "Retourne tous les outils sous forme de JSON.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Outils récupérés avec succès"),
@@ -70,7 +66,6 @@ public class OutilController {
         return ResponseEntity.ok(outils);
     }
 
-    // API REST pour récupérer un outil par ID
     @Operation(summary = "Récupérer un outil par ID (API)", description = "Retourne les détails d'un outil spécifique via son ID.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Détails de l'outil récupérés avec succès"),
@@ -87,8 +82,7 @@ public class OutilController {
                 .orElseThrow(() -> new OutilIntrouvableException("Outil introuvable."));
     }
 
-    // API REST pour ajouter un outil
-    // Afficher le formulaire d'ajout d'un outil
+
     @Operation(summary = "Afficher le formulaire d'ajout d'un outil", description = "Affiche un formulaire vide pour ajouter un nouvel outil.")
     @GetMapping("/ajouter")
     public String afficherFormulaireAjout(Model model) {
@@ -96,7 +90,6 @@ public class OutilController {
         return "ajouter"; // Correspond au fichier templates/ajouter.html
     }
 
-    // Soumettre un nouvel outil via formulaire HTML
     @Operation(summary = "Soumettre un nouvel outil", description = "Ajoute un nouvel outil selon le rôle de l'utilisateur.")
     @PostMapping("/ajouter")
     public String ajouterOutil(
@@ -117,18 +110,17 @@ public class OutilController {
         nouvelOutil.setAcces(acces);
 
         if ("ADMIN".equals(role)) {
-            nouvelOutil.setBooleanWithDefaultValue(true); // Ajout direct pour les admins
+            nouvelOutil.setBooleanWithDefaultValue(true);
         } else {
-            nouvelOutil.setBooleanWithDefaultValue(false); // En attente de validation pour les autres
+            nouvelOutil.setBooleanWithDefaultValue(false);
         }
 
         outilService.ajouterOutil(nouvelOutil);
         logger.info("Nouvel outil ajouté par {} : {}", role, titre);
-        return "redirect:/outils"; // Retour à la liste des outils
+        return "redirect:/outils";
     }
 
 
-    // API REST pour supprimer un outil
     @Operation(summary = "Supprimer un outil (API)", description = "Supprime un outil ainsi que tous ses feedbacks associés.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Outil supprimé avec succès"),
@@ -145,7 +137,6 @@ public class OutilController {
         return ResponseEntity.ok().build();
     }
 
-    // Supprimer un outil (redirection HTML)
     @PostMapping("/supprimer/{id}")
     public String supprimerOutilHtml(@PathVariable Long id) {
         feedbackService.supprimerFeedbacksParOutilId(id);
@@ -154,7 +145,6 @@ public class OutilController {
         return "redirect:/outils";
     }
 
-    // Afficher les détails d'un outil
     @Operation(summary = "Afficher les détails d'un outil", description = "Affiche les détails d'un outil spécifique ainsi que ses feedbacks associés.")
     @GetMapping("/details/{uuid}")
     public String afficherDetailsOutil(@PathVariable String uuid, Model model) {
@@ -175,17 +165,15 @@ public class OutilController {
         return "details";
     }
 
-    // Afficher le formulaire de modification
     @GetMapping("/modifier/{uuid}")
     public String afficherPageModifierOutil(@PathVariable String uuid, Model model) {
         Outil outil = outilService.recupererOutilParUuid(uuid)
                 .orElseThrow(() -> new IllegalArgumentException("Outil introuvable"));
         model.addAttribute("outil", outil);
-        return "modifier"; // Nom du template pour la page de modification
+        return "modifier";
     }
 
 
-    // Modifier un outil
     @PostMapping("/modifier")
     public String modifierOutil(
             @RequestParam String uuid,
@@ -210,7 +198,6 @@ public class OutilController {
     }
 
 
-    // Afficher les outils non validés
     @GetMapping("/admin/validation")
     public String afficherOutilsNonValides(Model model, HttpSession session) {
         String role = (String) session.getAttribute("role");
@@ -224,7 +211,6 @@ public class OutilController {
         return "adminValidation";
     }
 
-    // Valider un outil
     @PostMapping("/valider/{id}")
     public String validerOutil(@PathVariable Long id) {
         var outil = outilService.recupererOutilParId(id)
@@ -237,7 +223,6 @@ public class OutilController {
         return "redirect:/outils";
     }
 
-    // Rechercher des outils
     @GetMapping("/recherche")
     public String rechercherOutils(
             @RequestParam(required = false) String query,
@@ -251,11 +236,9 @@ public class OutilController {
         model.addAttribute("nom", nom);
         model.addAttribute("prenom", prenom);
 
-        // Recherche des outils validés uniquement
         List<Outil> resultats = outilService.rechercherOutils(query, domaine);
         model.addAttribute("outils", resultats);
 
-        // Récupération des domaines pour les outils validés uniquement
         List<String> domaines = outilService.recupererDomaines();
         model.addAttribute("domaines", domaines);
 

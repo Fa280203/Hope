@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,28 +21,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Désactive CSRF pour simplifier les tests
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-
-//                                .requestMatchers("/utilisateurs/connexion", "/css/**").permitAll() // Autorise la connexion et les CSS
-//                                .requestMatchers("/utilisateurs/logout", "/css/**").permitAll() // Autorise la connexion et les CSS
-//                                .requestMatchers("/feedbacks/formulaire/**", "/css/**").permitAll() // Autorise la connexion et les CSS
-//
-//                                .requestMatchers(HttpMethod.POST, "/utilisateurs/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
-//                                .requestMatchers(HttpMethod.POST, "/feedbacks/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
-//                                .requestMatchers(HttpMethod.POST, "/outils/**","/css/**").permitAll() // Permet les requêtes POST pour créer des utilisateurs
-//
-////                        .requestMatchers("/outils/**").hasRole("ADMIN") // Seuls les admins ont accès à /outils/**
-//                                .requestMatchers("/outils/**","/css/**").permitAll()// Seuls les admins ont accès à /outils/**
-
-                                .anyRequest().permitAll() // Le reste nécessite une authentification
+                         .anyRequest().permitAll()
                 )
 
-                .formLogin(form -> form.disable()) // Désactive la gestion de login automatique
+                .formLogin(AbstractHttpConfigurer::disable)
 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/utilisateurs/connexion?logout=true") // Redirection après déconnexion
+                        .logoutSuccessUrl("/utilisateurs/connexion?logout=true")
                         .permitAll()
                 );
 
