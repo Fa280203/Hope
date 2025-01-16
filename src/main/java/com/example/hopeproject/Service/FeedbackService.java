@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.util.Optional;
 import java.util.List;
 
 @Service
@@ -16,7 +16,9 @@ public class FeedbackService {
 
     @Autowired
     private FeedbackRepository feedbackRepository;
-
+    public Optional<Feedback> recupererFeedbackParUuid(String uuid) {
+        return feedbackRepository.findByUuid(uuid);
+    }
     public List<Feedback> recupererTousLesFeedbacks() {
         logger.info("Récupération de tous les feedbacks.");
         return feedbackRepository.findAll();

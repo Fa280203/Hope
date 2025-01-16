@@ -7,11 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
+import java.util.Optional;
 import java.util.List;
 
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     List<Feedback> findByOutilId(Long outilId);
+    Optional<Feedback> findByUuid(String uuid);
+
     List<Feedback> findByUtilisateurId(Long utilisateurId);
 
     List<Feedback> findByUtilisateurIdAndOutilId(Long utilisateurId, Long outilId);

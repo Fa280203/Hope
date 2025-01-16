@@ -38,11 +38,15 @@ public class FeedbackController {
     private UtilisateurService utilisateurService;
 
     @Operation(summary = "Afficher le formulaire de feedback", description = "Affiche un formulaire pour ajouter un feedback pour un outil donné.")
-    @GetMapping("/formulaire/{outilId}")
-    public String afficherFormulaireFeedback(@PathVariable Long outilId, Model model) {
-        model.addAttribute("outilId", outilId);
-        return "feedback"; // Correspond au fichier templates/feedback.html
+    @GetMapping("/formulaire/{outilUuid}")
+    public String afficherFormulaireFeedback(@PathVariable String outilUuid, Model model) {
+        Outil outil = outilService.recupererOutilParUuid(outilUuid)
+                .orElseThrow(() -> new OutilIntrouvableException("Outil introuvable."));
+
+        model.addAttribute("outilUuid", outilUuid);
+        return "feedback";
     }
+
 
     @Operation(summary = "Ajouter un feedback", description = "Ajoute un feedback pour un outil donné.")
     @ApiResponses({
@@ -51,10 +55,9 @@ public class FeedbackController {
             @ApiResponse(responseCode = "404", description = "Outil introuvable")
     })
     @PostMapping("/ajouter")
-
     public String ajouterFeedback(
             @RequestParam String contenu,
-            @RequestParam Long outilId,
+            @RequestParam String outilUuid,
             HttpSession session
     ) {
         String login = (String) session.getAttribute("login");
@@ -64,6 +67,12 @@ public class FeedbackController {
         if (login == null || utilisateurId == null) {
             throw new UtilisateurNonTrouveException("Vous devez être connecté pour ajouter un feedback.");
         }
+
+        // Récupérer l'outil par UUID
+        Outil outil = outilService.recupererOutilParUuid(outilUuid)
+                .orElseThrow(() -> new OutilIntrouvableException("Outil introuvable."));
+
+        Long outilId = outil.getId(); // Utilisez cet ID pour les vérifications de quotas et feedbacks existants
 
         List<Feedback> userFeedbacksForOutil = feedbackService.recupererFeedbacksParUtilisateurEtOutil(utilisateurId, outilId);
 
@@ -79,9 +88,6 @@ public class FeedbackController {
             throw new FeedbackQuotaExceededException("Vous avez atteint le quota maximum de " + maxFeedbacks + " feedbacks pour cet outil.");
         }
 
-        Outil outil = outilService.recupererOutilParId(outilId)
-                .orElseThrow(() -> new OutilIntrouvableException("Outil introuvable."));
-
         Utilisateur utilisateur = utilisateurService.recupererUtilisateurParLogin(login);
         Feedback feedback = new Feedback();
         feedback.setContenu(contenu);
@@ -92,6 +98,7 @@ public class FeedbackController {
 
         return "redirect:/outils";
     }
+
 
     @Operation(summary = "Supprimer un feedback", description = "Supprime un feedback via son ID.")
     @ApiResponses({

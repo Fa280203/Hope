@@ -2,12 +2,14 @@ package com.example.hopeproject.Modele;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 @Entity
 public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true, updatable = false, nullable = false)
+    private String uuid;
 
     private String contenu;
 
@@ -18,9 +20,21 @@ public class Feedback {
     @ManyToOne
     @JoinColumn(name = "outil_id")
     private Outil outil;
-
-
+    @PrePersist
+    public void initializeUUID() {
+        if (this.uuid == null) {
+            this.uuid = UUID.randomUUID().toString();
+        }
+    }
     private LocalDateTime dateCreation = LocalDateTime.now();
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public void setContenu(String contenu) {
         this.contenu = contenu;

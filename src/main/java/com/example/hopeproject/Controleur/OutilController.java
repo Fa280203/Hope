@@ -176,26 +176,26 @@ public class OutilController {
     }
 
     // Afficher le formulaire de modification
-    @GetMapping("/modifier/{id}")
-    public String afficherPageModifierOutil(@PathVariable Long id, Model model) {
-        var outil = outilService.recupererOutilParId(id)
+    @GetMapping("/modifier/{uuid}")
+    public String afficherPageModifierOutil(@PathVariable String uuid, Model model) {
+        Outil outil = outilService.recupererOutilParUuid(uuid)
                 .orElseThrow(() -> new IllegalArgumentException("Outil introuvable"));
-
         model.addAttribute("outil", outil);
-        return "modifier";
+        return "modifier"; // Nom du template pour la page de modification
     }
+
 
     // Modifier un outil
     @PostMapping("/modifier")
     public String modifierOutil(
-            @RequestParam Long id,
+            @RequestParam String uuid,
             @RequestParam String titre,
             @RequestParam String domaine,
             @RequestParam String descriptionSimple,
             @RequestParam String lien,
             @RequestParam String acces
     ) {
-        var outil = outilService.recupererOutilParId(id)
+        Outil outil = outilService.recupererOutilParUuid(uuid)
                 .orElseThrow(() -> new IllegalArgumentException("Outil introuvable"));
 
         outil.setTitre(titre);
@@ -205,9 +205,10 @@ public class OutilController {
         outil.setAcces(acces);
 
         outilService.ajouterOutil(outil);
-        logger.info("Outil avec ID {} modifié avec succès.", id);
+        logger.info("Outil avec UUID {} modifié avec succès.", uuid);
         return "redirect:/outils";
     }
+
 
     // Afficher les outils non validés
     @GetMapping("/admin/validation")
