@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panneau d'Administration</title>
+  <!-- Police moderne : Poppins (Google Fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+
+<!-- Barre de navigation fixe avec flou -->
+<nav class="navbar">
+  <div class="navbar-logo">Hope</div>
+  <ul class="navbar-links">
+    <li><h1>Hub des Outils et Plateforme pour les Enseignements</h1></li>
+  </ul>
+  <div class="theme-toggle" id="themeToggle">
+    <span>Dark Mode</span>
+  </div>
+</nav>
+
+<!-- Section Outils à valider -->
+<section id="admin-panel" class="admin-section">
+  <h2>Outils à valider</h2>
+
+  <div class="no-tools" th:if="${outilsNonValides.isEmpty()}">
+    <p>Aucun outil en attente de validation.</p>
+  </div>
+
+  <table class="tools-table">
+    <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Domaine</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="outil : ${outilsNonValides}">
+      <td th:text="${outil.titre}"></td>
+      <td th:text="${outil.domaine}"></td>
+      <td th:text="${outil.descriptionSimple}"></td>
+      <td>
+        <form th:action="@{/outils/valider/{id}(id=${outil.id})}" method="post" style="display:inline;">
+          <button type="submit" class="btn-validate">Valider</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/outils" class="back-link">Retour à la liste des outils</a>
+</section>
+
+<!-- Pied de page -->
+<footer>
+  <p>&copy; 2025 - Réalisé par la Dream Team :) Tous droits réservés.</p>
+</footer>
+
+<!-- JavaScript pour le mode sombre et les animations au scroll -->
+<script src="/app.js"></script>
+</body>
+</html>
