@@ -40,7 +40,8 @@
                 <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet outil ?');">Supprimer</button>
             </form>
         </span>
-        <a th:href="@{/outils/modifier/{uuid}(uuid=${outilUuid})}" class="btn-modifier">Modifier</a>
+
+        <a th:href="@{/outils/modifier/{uuid}(uuid=${outilUuid})}" class="btn-modifier" th:if="${session.role == 'ADMIN' or session.role == 'ENSEIGNANT'}">Modifier</a>
     </div>
 
     <div class="feedbacks-container" th:if="${!feedbacks.isEmpty()}">
