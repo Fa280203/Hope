@@ -28,14 +28,6 @@ public class UtilisateurService {
         return utilisateurRepository.findAll();
     }
 
-    public Utilisateur recupererUtilisateurParId(Long id) {
-        logger.info("Recherche de l'utilisateur avec l'ID : {}", id);
-        return utilisateurRepository.findById(id)
-                .orElseThrow(() -> {
-                    logger.error("Utilisateur avec l'ID {} non trouvé.", id);
-                    return new UtilisateurNonTrouveException("Utilisateur avec l'ID " + id + " non trouvé.");
-                });
-    }
 
     public Utilisateur recupererUtilisateurParLogin(String login) {
         logger.info("Recherche de l'utilisateur avec le login : {}", login);
@@ -52,11 +44,6 @@ public class UtilisateurService {
         Utilisateur savedUser = utilisateurRepository.save(utilisateur);
         logger.info("Utilisateur ajouté avec succès : {}", savedUser);
         return savedUser;
-    }
-
-    public void supprimerUtilisateur(Long id) {
-        logger.info("Suppression de l'utilisateur avec l'ID : {}", id);
-        utilisateurRepository.deleteById(id);
     }
 
     public Utilisateur connecterUtilisateur(String login, String motDePasse) {

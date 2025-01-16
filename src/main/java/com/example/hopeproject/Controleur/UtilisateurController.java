@@ -41,9 +41,9 @@ public class UtilisateurController {
     public ResponseEntity<List<Utilisateur>> recupererTousLesUtilisateurs() {
         List<Utilisateur> utilisateurs = utilisateurService.recupererTousLesUtilisateurs();
         if (utilisateurs.isEmpty()) {
-            return ResponseEntity.noContent().build(); // HTTP 204 No Content
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(utilisateurs); // HTTP 200 OK
+        return ResponseEntity.ok(utilisateurs);
     }
 
     @Operation(summary = "Ajouter un nouvel utilisateur", description = "Ajoute un utilisateur à partir d'un objet JSON.")
@@ -58,14 +58,14 @@ public class UtilisateurController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Les informations de l'utilisateur à ajouter")
             @RequestBody Utilisateur utilisateur) {
         Utilisateur savedUtilisateur = utilisateurService.ajouterUtilisateur(utilisateur);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUtilisateur); // HTTP 201 Created
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUtilisateur);
     }
 
     @Operation(summary = "Afficher la page de connexion", description = "Renvoie la page HTML de connexion des utilisateurs.")
     @ApiResponse(responseCode = "200", description = "Page de connexion affichée avec succès")
     @GetMapping("/connexion")
     public String afficherPageConnexion() {
-        return "connexion"; // Renvoie connexion.html dans le dossier templates
+        return "connexion";
     }
 
     @Operation(summary = "Déconnexion de l'utilisateur", description = "Invalide la session de l'utilisateur et redirige vers la page de connexion.")
@@ -73,8 +73,8 @@ public class UtilisateurController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         logger.info("Déconnexion de l'utilisateur. ID de session : {}", session.getId());
-        session.invalidate(); // Invalide la session
-        return "redirect:/utilisateurs/connexion"; // Redirection vers la page de connexion
+        session.invalidate();
+        return "redirect:/utilisateurs/connexion";
     }
 
     @Operation(summary = "Vérifier les informations de connexion", description = "Gère le formulaire de connexion et authentifie l'utilisateur.")
@@ -91,13 +91,10 @@ public class UtilisateurController {
             Model model
     ) {
         try {
-            // Invalide la session existante
             request.getSession().invalidate();
 
-            // Appelle le service pour authentifier l'utilisateur
             Utilisateur utilisateur = utilisateurService.connecterUtilisateur(username, password);
 
-            // Crée une nouvelle session et stocke les informations utilisateur
             HttpSession newSession = request.getSession(true);
             newSession.setAttribute("nom", utilisateur.getNom());
             newSession.setAttribute("prenom", utilisateur.getPrenom());
@@ -105,10 +102,8 @@ public class UtilisateurController {
             newSession.setAttribute("login", utilisateur.getLogin());
             newSession.setAttribute("id", utilisateur.getId());
 
-            // Redirection vers une autre page en cas de succès
             return "redirect:/outils";
         } catch (ConnexionException ex) {
-            // Ajoute un message d'erreur dans le modèle et retourne à la page de connexion
             model.addAttribute("errorMessage", ex.getMessage());
             return "connexion";
         }

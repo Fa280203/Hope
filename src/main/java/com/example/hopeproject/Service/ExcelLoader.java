@@ -23,11 +23,9 @@ public class ExcelLoader {
 
         for (Row row : sheet) {
             if (row.getRowNum() == 0) {
-                // Ignorer la première ligne (en-têtes)
                 continue;
             }
 
-            // Créer un outil avec toutes les colonnes (A-F)
             Outil outil = new Outil(
                     row.getCell(0).getStringCellValue(), // Titre (Colonne A)
                     row.getCell(1).getStringCellValue(), // Domaine (Colonne B)

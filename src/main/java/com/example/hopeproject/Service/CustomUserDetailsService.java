@@ -19,11 +19,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         Utilisateur utilisateur = utilisateurRepository.findByLogin(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
 
-        // Retourne un utilisateur Spring Security avec ses rôles
         return org.springframework.security.core.userdetails.User.builder()
                 .username(utilisateur.getLogin())
-                .password(utilisateur.getMotDePasse()) // Mot de passe encodé
-                .authorities(utilisateur.getRole().toString()) // Rôle comme autorité
+                .password(utilisateur.getMotDePasse())
+                .authorities(utilisateur.getRole().toString())
                 .build();
     }
 }

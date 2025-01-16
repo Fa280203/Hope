@@ -49,24 +49,12 @@ public class Utilisateur implements UserDetails {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public String getPrenom() {
         return prenom;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
     public String getLogin() {
         return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getMotDePasse() {
@@ -79,10 +67,6 @@ public class Utilisateur implements UserDetails {
 
     public Role getRole() {
         return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     // Implémentation de UserDetails pour Spring Security

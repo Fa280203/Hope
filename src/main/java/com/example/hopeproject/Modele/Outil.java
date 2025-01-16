@@ -1,7 +1,6 @@
 package com.example.hopeproject.Modele;
 
 import jakarta.persistence.*;
-import org.springframework.beans.factory.annotation.Value;
 import java.util.UUID;
 @Entity
 public class Outil {
@@ -36,9 +35,7 @@ public class Outil {
     }
 
 
-    public boolean isBooleanWithDefaultValue() {
-        return booleanWithDefaultValue;
-    }
+
 
     public void setBooleanWithDefaultValue(boolean booleanWithDefaultValue) {
         this.booleanWithDefaultValue = booleanWithDefaultValue;
@@ -101,10 +98,6 @@ public class Outil {
 
     public String getDescriptionDetaillee() {
         return descriptionDetaillee;
-    }
-
-    public void setDescriptionDetaillee(String descriptionDetaillee) {
-        this.descriptionDetaillee = descriptionDetaillee;
     }
 
     public String getAcces() {

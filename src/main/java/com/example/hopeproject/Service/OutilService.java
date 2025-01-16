@@ -14,9 +14,11 @@ public class OutilService {
 
     @Autowired
     private OutilRepository outilRepository;
+
     public Optional<Outil> recupererOutilParUuid(String uuid) {
         return outilRepository.findByUuid(uuid);
     }
+
     public List<Outil> recupererTousLesOutils() {
         return outilRepository.findAll();
     }
@@ -46,18 +48,14 @@ public class OutilService {
 
     public List<Outil> rechercherOutils(String query, String domaine) {
         if (query == null && (domaine == null || domaine.isEmpty())) {
-            // Si aucun critère n'est fourni, retourne tous les outils validés
             return outilRepository.findByBooleanWithDefaultValue(true);
         } else if (query != null && (domaine == null || domaine.isEmpty())) {
-            // Rechercher uniquement les outils validés avec un titre ou une description contenant la query
-            return outilRepository.findByTitreContainingIgnoreCaseAndBooleanWithDefaultValueOrDescriptionSimpleContainingIgnoreCaseAndBooleanWithDefaultValue(
+            return outilRepository.findByTitreOrDescriptionSimpleAndBooleanWithDefaultValue(
                     query, true, query, true);
         } else if (query == null) {
-            // Rechercher uniquement les outils validés dans un domaine spécifique
             return outilRepository.findByDomaineAndBooleanWithDefaultValue(domaine, true);
         } else {
-            // Rechercher par domaine et mots-clés, uniquement pour les outils validés
-            return outilRepository.findByDomaineAndTitreContainingIgnoreCaseAndBooleanWithDefaultValueOrDomaineAndDescriptionSimpleContainingIgnoreCaseAndBooleanWithDefaultValue(
+            return outilRepository.findByDomaineAndTitreContainingOrDomaineAndDescriptionSimple(
                     domaine, query, true, domaine, query, true);
         }
     }
@@ -65,5 +63,4 @@ public class OutilService {
     public List<String> recupererDomaines() {
         return outilRepository.findDistinctDomainesForValidOutils();
     }
-
 }

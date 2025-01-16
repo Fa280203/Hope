@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
+
 import java.util.List;
 
 @Service
@@ -16,18 +16,11 @@ public class FeedbackService {
 
     @Autowired
     private FeedbackRepository feedbackRepository;
-    public Optional<Feedback> recupererFeedbackParUuid(String uuid) {
-        return feedbackRepository.findByUuid(uuid);
-    }
-    public List<Feedback> recupererTousLesFeedbacks() {
-        logger.info("Récupération de tous les feedbacks.");
-        return feedbackRepository.findAll();
-    }
 
-    public Feedback ajouterFeedback(Feedback feedback) {
+    public void ajouterFeedback(Feedback feedback) {
         logger.info("Ajout d'un feedback pour l'outil {} par l'utilisateur {}.",
                 feedback.getOutil().getId(), feedback.getUtilisateur().getId());
-        return feedbackRepository.save(feedback);
+        feedbackRepository.save(feedback);
     }
 
     public void supprimerFeedback(Long id) {
@@ -43,11 +36,6 @@ public class FeedbackService {
     public List<Feedback> recupererFeedbacksParOutil(Long outilId) {
         logger.info("Récupération des feedbacks pour l'outil avec ID {}.", outilId);
         return feedbackRepository.findByOutilId(outilId);
-    }
-
-    public List<Feedback> recupererFeedbacksParUtilisateur(Long utilisateurId) {
-        logger.info("Récupération des feedbacks pour l'utilisateur avec ID {}.", utilisateurId);
-        return feedbackRepository.findByUtilisateurId(utilisateurId);
     }
 
     public boolean existeFeedback(Long id) {

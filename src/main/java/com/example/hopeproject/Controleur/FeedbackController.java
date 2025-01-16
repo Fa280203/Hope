@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +39,7 @@ public class FeedbackController {
     @Operation(summary = "Afficher le formulaire de feedback", description = "Affiche un formulaire pour ajouter un feedback pour un outil donné.")
     @GetMapping("/formulaire/{outilUuid}")
     public String afficherFormulaireFeedback(@PathVariable String outilUuid, Model model) {
-        Outil outil = outilService.recupererOutilParUuid(outilUuid)
+        outilService.recupererOutilParUuid(outilUuid)
                 .orElseThrow(() -> new OutilIntrouvableException("Outil introuvable."));
 
         model.addAttribute("outilUuid", outilUuid);
@@ -68,20 +67,18 @@ public class FeedbackController {
             throw new UtilisateurNonTrouveException("Vous devez être connecté pour ajouter un feedback.");
         }
 
-        // Récupérer l'outil par UUID
         Outil outil = outilService.recupererOutilParUuid(outilUuid)
                 .orElseThrow(() -> new OutilIntrouvableException("Outil introuvable."));
 
-        Long outilId = outil.getId(); // Utilisez cet ID pour les vérifications de quotas et feedbacks existants
+        Long outilId = outil.getId();
 
         List<Feedback> userFeedbacksForOutil = feedbackService.recupererFeedbacksParUtilisateurEtOutil(utilisateurId, outilId);
 
-        // Gestion des quotas en fonction du rôle
         int maxFeedbacks = switch (role) {
             case "ADMIN" -> 5;
             case "ETUDIANT" -> 2;
             case "ENSEIGNANT" -> 3;
-            default -> 1; // Par défaut
+            default -> 1;
         };
 
         if (userFeedbacksForOutil.size() >= maxFeedbacks) {
