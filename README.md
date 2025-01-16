@@ -42,7 +42,7 @@
 
 - Le fichier `hope-2.sql` se trouve à la racine du projet. Il contient les scripts pour recréer les tables nécessaires.
 
-- Le fichier 'rapport_Projet_Java_clean_code.pdf' se trouve à la racine du projet. Il contient la réponse aux questions pour le rapport du projet.
+- Le fichier `rapport_Projet_Java_clean_code.pdf` se trouve à la racine du projet. Il contient la réponse aux questions pour le rapport du projet.
 
 ### 3.3. Étapes pour lancer l'application
 
