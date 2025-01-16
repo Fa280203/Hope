@@ -34,7 +34,7 @@
     </div>
 
     <div class="actions-container">
-        <a th:href="@{'/feedbacks/formulaire/' + ${outilId}}" class="btn-feedback">Ajouter un Feedback</a>
+        <a th:href="@{'/feedbacks/formulaire/' + ${outilUuid}}" class="btn-feedback">Ajouter un Feedback</a>
         <span th:if="${session.role=='ADMIN'}">
             <form th:action="@{/outils/supprimer/{id}(id=${outilId})}" method="post" style="display:inline;">
                 <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet outil ?');">Supprimer</button>
