@@ -27,6 +27,7 @@
   <h2>Modifier l'Outil</h2>
   <form th:action="@{/outils/modifier}" method="post">
     <input type="hidden" name="id" th:value="${outil.id}" />
+    <input type="hidden" name="uuid" th:value="${outil.uuid}" />
 
     <div>
       <label for="titre">Titre :</label>
